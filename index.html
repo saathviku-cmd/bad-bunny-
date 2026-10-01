@@ -33,13 +33,13 @@
       <span>TEAM <b>AANYA</b></span>
     </a>
     <nav class="nav__links" id="navLinks">
+      <a href="#about">About</a>
       <a href="#rover">Rover</a>
       <a href="#engineering">Engineering</a>
+      <a href="#action">In Action</a>
       <a href="#control">Mission Control</a>
-      <a href="#journey">Journey</a>
-      <a href="#gallery">Gallery</a>
       <a href="#team">Team</a>
-      <a href="#contact" class="btn btn--sm btn--primary">Sponsor us</a>
+      <a href="#contact" class="btn btn--sm btn--primary">Contact us</a>
     </nav>
     <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><i></i><i></i></button>
   </header>
@@ -49,31 +49,33 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <div class="hero__media" id="heroMedia">
-        <!-- Drop a clip at assets/video/hero.mp4 and it plays automatically behind the hero. -->
-        <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="assets/img/render-side.webp">
+        <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/still-drive.jpg">
           <source src="assets/video/hero.mp4" type="video/mp4" />
         </video>
-        <img class="hero__img" src="assets/img/render-side.webp" alt="CAD render of the AANYA rover: black chassis, six wheels on articulated legs and a robotic arm" />
+        <img class="hero__img" src="assets/img/still-drive.jpg" alt="" />
       </div>
       <div class="hero__shade"></div>
+      <div class="hero__tint"></div>
+      <div class="hero__scan"></div>
+      <div class="hero__grain"></div>
       <div class="hero__grid"></div>
-      <img class="hero__logo" src="assets/img/logo-vertical.svg" alt="" aria-hidden="true" />
 
-      <div class="hud hud--tl"><span class="dot dot--ok"></span>SYS NOMINAL<br><small id="hudClock">--:--:--</small></div>
+      <div class="hud hud--tl"><span class="dot dot--rec"></span>REC · LIVE TEST FOOTAGE<br><small id="hudClock">--:--:--</small></div>
       <div class="hud hud--tr">6WD · SKID-STEER<br><small>ZERO-RADIUS YAW</small></div>
       <div class="hud hud--bl">EDGE&nbsp;NODE<br><small>JETSON ORIN NANO</small></div>
       <div class="hud hud--br">SCROLL<br><small class="hud__arrow">↓</small></div>
 
-      <div class="hero__content">
+      <div class="hero__content hero__content--center">
+        <img class="hero__mark" src="assets/img/logo-mark.svg" alt="" />
         <p class="eyebrow"><span class="pulse"></span>Student Robotics Team</p>
         <h1 class="hero__title">
           <span class="hero__title-solid">TEAM</span>
           <span class="hero__title-outline" data-text="AANYA">AANYA</span>
         </h1>
-        <p class="hero__sub">We design, build and debug a <b>six-wheel-drive autonomous rover</b> with a <b>robotic arm</b> and an <b>edge-AI brain</b>. From CAD to concrete floor.</p>
+        <p class="hero__sub">Engineering autonomy, one wheel at a time. We build a <b>six-wheel-drive autonomous rover</b> with a <b>robotic arm</b> and an <b>edge-AI brain</b>, from CAD to concrete floor.</p>
         <div class="hero__cta">
-          <a href="#rover" class="btn btn--primary">Explore the rover</a>
-          <button class="btn btn--ghost" id="watchBtn" type="button"><span class="play"></span>Watch it move</button>
+          <button class="btn btn--primary" id="watchBtn" type="button"><span class="play"></span>Watch the film</button>
+          <a href="#rover" class="btn btn--ghost">Explore the rover</a>
         </div>
       </div>
     </section>
@@ -95,9 +97,15 @@
         </div>
         <div class="reveal">
           <!-- TODO: replace [Your College] with your college name -->
-          <p class="lead">Team AANYA is a group of students from <b>[Your College]</b> who wanted to build a real field robot, not a kit. We designed the chassis in CAD, built it by hand, wired every motor driver and wrote the control stack straight against the Linux kernel.</p>
+          <p class="lead">Team AANYA is a group of students from <b>[Your College]</b> who wanted to build a real field robot, not a kit. Six wheels, one arm, one brain, and a lot of late nights. We designed the chassis in CAD, built it by hand, wired every motor driver and wrote the control stack straight against the Linux kernel.</p>
           <p class="muted">The result is AANYA: a rugged, universal mobile platform that drives on six wheels, carries a multi-axis manipulator, and runs its intelligence on an onboard NVIDIA Jetson. Our goal is a rover that can see, map, and navigate on its own, while a human can always take back control in an instant.</p>
         </div>
+      </div>
+
+      <div class="wrap pillars">
+        <article class="pillar reveal"><span>01</span><h3>Vision</h3><p>A rugged, universal rover that can see, map and navigate the real world on its own, built entirely by students.</p></article>
+        <article class="pillar reveal"><span>02</span><h3>Mission</h3><p>Learn by building: design every subsystem ourselves, debug to the root cause, and validate on real hardware before we call anything done.</p></article>
+        <article class="pillar reveal"><span>03</span><h3>Values</h3><p>Safety first: a human can always take control. Honest engineering: we share what works and what broke.</p></article>
       </div>
 
       <div class="wrap stats">
@@ -263,13 +271,50 @@
       </div>
     </section>
 
+    <!-- ============ IN ACTION ============ -->
+    <section class="section action" id="action">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">04 — In action</p>
+          <h2 class="h2">Not a render.<br>A rover that moves.</h2>
+          <p class="muted">Real test footage from our build. Pick a clip.</p>
+        </div>
+        <div class="player reveal">
+          <div class="player__stage">
+            <video id="playerVideo" src="assets/video/drive.mp4" poster="assets/img/still-drive.jpg" muted loop playsinline preload="metadata"></video>
+            <div class="player__hud"><span class="dot dot--rec"></span><b id="playerTitle">DRIVE TEST</b><span id="playerTime">00:00</span></div>
+            <button class="player__full" id="playerFull" type="button" aria-label="Play fullscreen">⤢</button>
+          </div>
+          <ol class="player__list" id="playerList">
+            <li><button type="button" class="is-on" data-src="assets/video/drive.mp4" data-poster="assets/img/still-drive.jpg" data-title="DRIVE TEST"><img src="assets/img/still-drive.jpg" alt="" loading="lazy"><span><b>Drive test</b>6WD skid-steer on concrete</span></button></li>
+            <li><button type="button" data-src="assets/video/arm.mp4" data-poster="assets/img/still-arm.jpg" data-title="ARM ARTICULATION"><img src="assets/img/still-arm.jpg" alt="" loading="lazy"><span><b>Arm articulation</b>Multi-axis sweep on PCA9685 servos</span></button></li>
+            <li><button type="button" data-src="assets/video/grab.mp4" data-poster="assets/img/still-grab.jpg" data-title="GRIPPER PICK"><img src="assets/img/still-grab.jpg" alt="" loading="lazy"><span><b>Gripper pick</b>Taking objects from a hand</span></button></li>
+            <li><button type="button" data-src="assets/video/lights.mp4" data-poster="assets/img/still-lights.jpg" data-title="LIGHTS TEST"><img src="assets/img/still-lights.jpg" alt="" loading="lazy"><span><b>Lights test</b>Onboard illumination</span></button></li>
+            <li><button type="button" data-src="assets/video/dashboard.mp4" data-poster="assets/img/still-dashboard.jpg" data-title="MISSION CONTROL UI"><img src="assets/img/still-dashboard.jpg" alt="" loading="lazy"><span><b>Mission control</b>Our dashboard, running</span></button></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ MISSION CONTROL ============ -->
     <section class="section control" id="control">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">04 — Mission control</p>
+          <p class="kicker">05 — Mission control</p>
           <h2 class="h2">One console. Two pilots.</h2>
-          <p class="muted">A preview of the dashboard we're building. Plug in a gamepad (or use <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>) in Manual Overdrive and watch the skid-steer mixing respond. Sensor data here is simulated until the rover goes live.</p>
+          <p class="muted">Our in-house control station: one screen for the AI pilot and the human driver.</p>
+        </div>
+
+        <div class="realdash reveal">
+          <div class="realdash__vid">
+            <video src="assets/video/dashboard.mp4" poster="assets/img/still-dashboard.jpg" muted loop playsinline preload="none" class="autoplay-visible"></video>
+            <span class="tag">REAL · IN DEVELOPMENT</span>
+          </div>
+          <div class="realdash__text">
+            <h3>Our dashboard, running today.</h3>
+            <p class="muted">Built in-house: live camera feed, LiDAR scan view, drive telemetry and gamepad input on one screen. Below is an interactive preview you can drive yourself.</p>
+            <ul class="checks checks--sm"><li>Live camera stream</li><li>LiDAR scan view</li><li>Drive &amp; arm telemetry</li><li>Gamepad overdrive</li></ul>
+          </div>
         </div>
 
         <div class="console reveal" id="console" data-mode="ai">
@@ -321,7 +366,7 @@
     <section class="section journey" id="journey">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">05 — Journey</p>
+          <p class="kicker">06 — What we've done · What's next</p>
           <h2 class="h2">From sketch to self-driving.</h2>
         </div>
         <ol class="timeline">
@@ -342,19 +387,17 @@
     <section class="section gallery" id="gallery">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">06 — Gallery</p>
+          <p class="kicker">07 — Gallery</p>
           <h2 class="h2">CAD to concrete.</h2>
         </div>
         <div class="masonry">
           <figure class="shot shot--wide reveal"><img src="assets/img/render-front.webp" alt="AANYA CAD render, front three-quarter view" loading="lazy"><figcaption>CAD render · front</figcaption></figure>
           <figure class="shot reveal"><img src="assets/img/build-arm.jpg" alt="The real AANYA prototype with its robotic arm and camera" loading="lazy"><figcaption>Prototype · arm &amp; camera</figcaption></figure>
           <figure class="shot reveal"><img src="assets/img/build-full.jpg" alt="The real AANYA prototype on a concrete floor, six wheels on articulated legs" loading="lazy"><figcaption>Prototype · full build</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/img/still-arm.jpg" alt="AANYA's robotic arm raised during a test" loading="lazy"><figcaption>Test · arm up</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/img/still-grab.jpg" alt="AANYA's gripper taking an object from a hand" loading="lazy"><figcaption>Test · gripper pick</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/img/still-intro.jpg" alt="Team AANYA title card with the rover" loading="lazy"><figcaption>Team AANYA</figcaption></figure>
           <figure class="shot shot--wide reveal"><img src="assets/img/render-side.webp" alt="AANYA CAD render, side view showing the leg linkage" loading="lazy"><figcaption>CAD render · side</figcaption></figure>
-        </div>
-        <!-- Videos: add <video> tiles here once clips are in assets/video/ -->
-        <div class="video-slot reveal">
-          <span class="play play--lg"></span>
-          <p><b>Drive footage incoming.</b><br><span class="muted">Test runs and arm demos coming soon.</span></p>
         </div>
       </div>
     </section>
@@ -363,31 +406,31 @@
     <section class="section team" id="team">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">07 — The crew</p>
-          <h2 class="h2">The people behind the bolts.</h2>
+          <p class="kicker">08 — The crew</p>
+          <h2 class="h2">Four divisions.<br>One rover.</h2>
+          <p class="muted">Team AANYA is organised like a real engineering team. Every division owns its subsystem from design to validation.</p>
         </div>
-        <!-- TODO: replace names, roles and initials. Add a photo with <img> inside .member__ph if you have one. -->
-        <div class="members">
-          <article class="member reveal"><div class="member__ph">TL</div><h4>Team Lead</h4><p>Systems &amp; integration</p></article>
-          <article class="member reveal"><div class="member__ph">ME</div><h4>Mechanical</h4><p>Chassis, legs &amp; arm</p></article>
-          <article class="member reveal"><div class="member__ph">EE</div><h4>Electronics</h4><p>Power &amp; motor drivers</p></article>
-          <article class="member reveal"><div class="member__ph">SW</div><h4>Software &amp; AI</h4><p>Kernel PWM, autonomy</p></article>
+        <div class="divisions">
+          <article class="division reveal"><span class="division__n">MECH</span><h4>Mechanical</h4><p>Chassis, leg linkage, wheels and the multi-axis arm. Designed in CAD, built by hand in aluminium extrusion.</p></article>
+          <article class="division reveal"><span class="division__n">ELEC</span><h4>Electronics &amp; Power</h4><p>Dual-rail power architecture, three Cytron H-bridges, wiring harness and the I2C servo bus.</p></article>
+          <article class="division reveal"><span class="division__n">SOFT</span><h4>Software &amp; AI</h4><p>Kernel-level PWM drivers, sensor fusion, the AI pilot and the mission-control dashboard.</p></article>
+          <article class="division reveal"><span class="division__n">OPS</span><h4>Management &amp; Outreach</h4><p>Planning, sponsorship, documentation and telling AANYA's story.</p></article>
         </div>
       </div>
     </section>
 
-    <!-- ============ PARTNERS / CTA ============ -->
-    <section class="section partners" id="contact">
+    <!-- ============ SPONSORS ============ -->
+    <section class="section partners" id="sponsors">
       <div class="wrap">
-        <div class="cta reveal">
-          <p class="kicker">08 — Join the mission</p>
-          <h2 class="h2">Help us take AANYA into the field.</h2>
-          <p class="lead">We're looking for sponsors, mentors and new members. Hardware, sensors, compute or know-how: every bit gets us closer to full autonomy.</p>
-          <div class="hero__cta">
-            <!-- TODO: put your team email here -->
-            <a class="btn btn--primary" href="mailto:teamaanya@example.com">Become a sponsor</a>
-            <a class="btn btn--ghost" href="mailto:teamaanya@example.com?subject=Joining%20Team%20AANYA">Join the team</a>
-          </div>
+        <div class="section__head reveal">
+          <p class="kicker">09 — Sponsors</p>
+          <h2 class="h2">Fuel the mission.</h2>
+          <p class="muted">Hardware, sensors, compute or funding: every bit takes AANYA closer to full autonomy in the field. Here's what partners get.</p>
+        </div>
+        <div class="tiers">
+          <article class="tier reveal"><span class="tier__name">Silver</span><ul><li>Logo on our website</li><li>Social media shout-outs</li><li>Project updates</li></ul></article>
+          <article class="tier tier--hot reveal"><span class="tier__name">Gold</span><ul><li>Everything in Silver</li><li>Logo on the rover body</li><li>Logo on team merchandise</li></ul></article>
+          <article class="tier reveal"><span class="tier__name">Platinum</span><ul><li>Everything in Gold</li><li>Prime logo placement on the rover</li><li>Live demo at your event or office</li></ul></article>
         </div>
         <div class="built-with reveal">
           <span>Built with</span>
@@ -395,12 +438,60 @@
         </div>
       </div>
     </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section contact" id="contact">
+      <div class="wrap contact__grid">
+        <div class="reveal">
+          <p class="kicker">10 — Contact us</p>
+          <h2 class="h2">Let's build<br>something.</h2>
+          <p class="lead">Sponsorship, collaboration, joining the team, or just want to see AANYA drive? Reach out.</p>
+          <ul class="contact__list">
+            <li><span>CALL</span><a href="tel:+919113936032">+91 91139 36032</a></li>
+            <li><span>EMAIL</span><a href="mailto:saathviku@gmail.com">saathviku@gmail.com</a></li>
+            <li><span>WHATSAPP</span><a href="https://wa.me/919113936032" target="_blank" rel="noopener">Message us</a></li>
+          </ul>
+        </div>
+        <form class="form reveal" id="contactForm">
+          <label>Name<input name="name" required autocomplete="name" /></label>
+          <label>Email<input name="email" type="email" required autocomplete="email" /></label>
+          <label>I'm interested in
+            <select name="topic">
+              <option>Sponsoring Team AANYA</option>
+              <option>Joining the team</option>
+              <option>Collaboration</option>
+              <option>Something else</option>
+            </select>
+          </label>
+          <label>Message<textarea name="message" rows="4" required></textarea></label>
+          <button class="btn btn--primary" type="submit">Send message</button>
+          <p class="form__note muted">Opens your email app with the message filled in.</p>
+        </form>
+      </div>
+    </section>
   </main>
 
   <footer class="foot">
+    <div class="wrap foot__top">
+      <div class="foot__brand-col">
+        <img src="assets/img/logo-vertical.svg" alt="Team AANYA logo" class="foot__logo" />
+        <p class="muted">Student robotics team building a 6WD autonomous rover with a robotic arm and an edge-AI brain.</p>
+      </div>
+      <div>
+        <h5>Explore</h5>
+        <a href="#about">About</a><a href="#rover">Rover</a><a href="#engineering">Engineering</a><a href="#action">In Action</a><a href="#control">Mission Control</a>
+      </div>
+      <div>
+        <h5>Team</h5>
+        <a href="#journey">Journey</a><a href="#gallery">Gallery</a><a href="#team">Divisions</a><a href="#sponsors">Sponsors</a>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <a href="tel:+919113936032">+91 91139 36032</a><a href="mailto:saathviku@gmail.com">saathviku@gmail.com</a>
+      </div>
+    </div>
     <div class="wrap foot__in">
-      <span class="foot__brand"><img src="assets/img/logo-mark.svg" alt="" />TEAM <b>AANYA</b> · Student Robotics</span>
-      <span class="muted">© <span id="year"></span> Team AANYA</span>
+      <span>© <span id="year"></span> Team <b>AANYA</b></span>
       <a href="#top" class="muted">Back to top ↑</a>
     </div>
   </footer>

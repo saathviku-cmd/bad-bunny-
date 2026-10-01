@@ -18,19 +18,26 @@ assets/img/           renders, build photos, logo (logo-mark.svg, logo-vertical.
 assets/video/         put clips here
 ```
 
-## Adding videos
+## Videos
 
-- **Hero background:** save a short, compressed clip as `assets/video/hero.mp4`. It plays automatically behind the hero, and the "Watch it move" button opens it. Aim for under ~10 MB (1080p, 10–20 s, no audio).
-- **Gallery:** add `<video>` tiles in the `#gallery` section of `index.html`.
-- Keep files under GitHub's 100 MB limit. Host long videos on YouTube and embed them.
+All cut from the team's test film (H.264, muted, web-optimised):
+
+| File | Used in | Content |
+|---|---|---|
+| `hero.mp4` | Hero background loop | Drive + arm highlights |
+| `aanya-film.mp4` | "Watch the film" button | Full 2:48 film |
+| `drive.mp4`, `arm.mp4`, `grab.mp4`, `lights.mp4`, `dashboard.mp4` | In Action player | Individual tests |
+
+Stills for posters live in `assets/img/still-*.jpg`. To swap a clip, replace the file with the same name. Keep files under GitHub's 100 MB limit; host long videos on YouTube.
 
 ## Placeholders to fill in
 
 Search `index.html` for `TODO`:
 
 - College name (About section)
-- Team member names and roles (Team section)
-- Contact email (Join section)
+
+
+Contact details (phone, email, WhatsApp) are in the Contact section and footer.
 
 ## Deploy
 

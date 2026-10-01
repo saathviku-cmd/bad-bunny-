@@ -15,6 +15,7 @@
     ["i2c-1 · PCA9685 @0x40", "OK"],
     ["RAIL A · 5V LOGIC", "STABLE"],
     ["RAIL B · MOTOR BUS", "ARMED"],
+    ["CAM · GRIPPER · LIGHTS", "OK"],
     ["AANYA · SYSTEMS", "GO"],
   ];
   function finishBoot() {
@@ -148,11 +149,45 @@
     openModal(`<img src="${img.getAttribute("src")}" alt="${img.alt}">`);
   }));
   $("#watchBtn").addEventListener("click", () => {
-    if (hero.classList.contains("has-video")) {
-      openModal(`<video src="assets/video/hero.mp4" controls autoplay playsinline></video>`);
-    } else {
-      openModal(`<div class="soon"><span class="play play--lg"></span><b>Footage incoming</b>Drive tests and arm demos coming soon.</div>`);
-    }
+    openModal(`<video src="assets/video/aanya-film.mp4" controls autoplay playsinline></video>`);
+  });
+
+  /* ---------- in-action player ---------- */
+  const player = $("#playerVideo");
+  const playerTitle = $("#playerTitle");
+  const playerTime = $("#playerTime");
+  $$("#playerList button").forEach((b) => b.addEventListener("click", () => {
+    $$("#playerList button").forEach((x) => x.classList.toggle("is-on", x === b));
+    player.poster = b.dataset.poster;
+    player.src = b.dataset.src;
+    playerTitle.textContent = b.dataset.title;
+    player.play().catch(() => {});
+  }));
+  player.addEventListener("timeupdate", () => {
+    const t = Math.floor(player.currentTime);
+    playerTime.textContent = `${pad2(Math.floor(t / 60))}:${pad2(t % 60)}`;
+  });
+  $("#playerFull").addEventListener("click", () => {
+    openModal(`<video src="${player.getAttribute("src")}" controls autoplay playsinline loop></video>`);
+  });
+
+  // Play background/inline videos only while on screen.
+  const visObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const v = e.target;
+      if (e.isIntersecting && !reduced) v.play().catch(() => {});
+      else v.pause();
+    });
+  }, { threshold: 0.25 });
+  [player, heroVideo, ...$$("video.autoplay-visible")].forEach((v) => visObs.observe(v));
+
+  /* ---------- contact form → email ---------- */
+  $("#contactForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const f = new FormData(e.target);
+    const subject = `${f.get("topic")} · ${f.get("name")}`;
+    const body = `${f.get("message")}\n\n${f.get("name")}\n${f.get("email")}`;
+    location.href = `mailto:saathviku@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 
   /* ---------- rover hotspots ---------- */
