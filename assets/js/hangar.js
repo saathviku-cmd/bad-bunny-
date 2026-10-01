@@ -20,6 +20,10 @@
   document.body.classList.add("has-hangar");
 
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Asset URLs: relative by default; a deployment can serve them from a CDN by
+  // setting window.AANYA_ASSET_BASE before this script runs.
+  const asset = (p) => (/^(https?:|data:|blob:)/.test(p) ? p : (window.AANYA_ASSET_BASE || "") + p);
+
   const TEAL = 0x4fd3d6, WHITE = 0xe9eef3;
 
   renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5));
@@ -127,7 +131,7 @@
   if (THREE.GLTFLoader) {
     const gl = new THREE.GLTFLoader();
     if (window.MeshoptDecoder) gl.setMeshoptDecoder(window.MeshoptDecoder);
-    const modelSrc = (document.getElementById("explore") || {}).dataset?.model || "assets/model/aanya.glb";
+    const modelSrc = (document.getElementById("explore") || {}).dataset?.model || asset("assets/model/aanya.glb");
     loadModel(gl, modelSrc, (gltf) => {
       const m = gltf.scene; m.updateMatrixWorld(true);
       // Sample points evenly over the surface area, so flat panels show up as well as detailed parts.
@@ -203,10 +207,12 @@
   const screens = [];
   const loader = new THREE.TextureLoader();
   function screen({ x, z, w = 6.4, label, sub, video, image, side }) {
+    video = video && asset(video); image = image && asset(image);
     const h = w * 9 / 16, y = 4.1;
     let tex, vid = null;
     if (video) {
       vid = document.createElement("video");
+      vid.crossOrigin = "anonymous"; // needed to draw CDN-hosted video into WebGL
       Object.assign(vid, { src: video, muted: true, loop: true, playsInline: true, preload: "none" });
       vid.setAttribute("muted", ""); vid.setAttribute("playsinline", "");
       tex = new THREE.VideoTexture(vid);

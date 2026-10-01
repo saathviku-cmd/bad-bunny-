@@ -6,6 +6,10 @@
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Asset URLs: relative by default; a deployment can serve them from a CDN by
+  // setting window.AANYA_ASSET_BASE before this script runs.
+  const asset = (p) => (/^(https?:|data:|blob:)/.test(p) ? p : (window.AANYA_ASSET_BASE || "") + p);
+
   const pad2 = (n) => String(n).padStart(2, "0");
 
   /* ---------- boot preloader ---------- */
@@ -150,7 +154,7 @@
     const img = $("img", f);
     openModal(`<img src="${img.getAttribute("src")}" alt="${img.alt}">`);
   }));
-  const playTrailer = () => openModal(`<video src="assets/video/trailer.mp4" controls autoplay playsinline></video>`);
+  const playTrailer = () => openModal(`<video src="${asset("assets/video/trailer.mp4")}" controls autoplay playsinline></video>`);
   ["#watchBtn", "#watchBtnHero"].forEach((id) => { const b = $(id); if (b) b.addEventListener("click", playTrailer); });
   // Used by the 3D hangar (hangar.js) when a screen is clicked.
   window.aanyaOpenVideo = (src) => openModal(`<video src="${src}" controls autoplay playsinline loop></video>`);
