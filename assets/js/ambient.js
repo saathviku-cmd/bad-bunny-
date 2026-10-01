@@ -2,16 +2,15 @@
    TEAM AANYA — generative ambient music
    A light, slowly evolving soundtrack made with the Web Audio API:
    soft chord pads, sparse bell notes with echo, and a low root.
-   Nothing plays until the visitor presses a sound button.
+   Browsers only allow sound after the visitor's first click, tap or key
+   press, so the music starts automatically on that first interaction.
    The hangar can call window.aanyaAudio.setProgress(0..1) to
    brighten the sound as the camera walks down the hall.
    ========================================================== */
 (() => {
   "use strict";
-  const buttons = [...document.querySelectorAll("[data-sound-toggle]")];
-  if (!buttons.length) return;
   const AC = window.AudioContext || window.webkitAudioContext;
-  if (!AC) { buttons.forEach((b) => (b.hidden = true)); return; }
+  if (!AC) return;
 
   // Dmaj7 → Bm9 → Gmaj7 → A(add9): bright, calm, no strong resolution.
   const CHORDS = [
@@ -104,15 +103,6 @@
     }
   }
 
-  function setUi() {
-    buttons.forEach((b) => {
-      b.setAttribute("aria-pressed", String(on));
-      b.classList.toggle("is-on", on);
-      const l = b.querySelector("[data-sound-label]");
-      if (l) l.textContent = on ? "Sound on" : "Sound off";
-    });
-  }
-
   async function start() {
     if (!ctx) build();
     await ctx.resume();
@@ -124,19 +114,15 @@
     master.gain.cancelScheduledValues(t);
     master.gain.setValueAtTime(master.gain.value, t);
     master.gain.linearRampToValueAtTime(0.6, t + 2.5);
-    on = true; setUi();
+    on = true;
   }
-  function stop() {
-    if (!ctx) return;
-    const t = ctx.currentTime;
-    master.gain.cancelScheduledValues(t);
-    master.gain.setValueAtTime(master.gain.value, t);
-    master.gain.linearRampToValueAtTime(0, t + 1.2);
-    on = false; setUi();
-    setTimeout(() => { if (!on) { clearInterval(timer); timer = null; ctx.suspend(); } }, 1400);
-  }
-
-  buttons.forEach((b) => b.addEventListener("click", () => (on ? stop() : start())));
+  // Start on the first interaction (or right away if the browser already allows it).
+  const kick = () => { if (!on) start().catch(() => {}); };
+  ["pointerdown", "keydown", "touchend"].forEach((ev) => addEventListener(ev, kick, { once: true, passive: true }));
+  try {
+    const probe = new AC();
+    if (probe.state === "running") { probe.close(); kick(); } else probe.close();
+  } catch (e) { /* ignore */ }
   document.addEventListener("visibilitychange", () => {
     if (!ctx || !on) return;
     if (document.hidden) ctx.suspend(); else ctx.resume();
@@ -146,5 +132,4 @@
     setProgress(p) { if (filter) filter.frequency.setTargetAtTime(700 + p * 1800, ctx.currentTime, 0.8); },
     duck(down) { if (on && master) master.gain.setTargetAtTime(down ? 0.1 : 0.6, ctx.currentTime, 0.3); },
   };
-  setUi();
 })();

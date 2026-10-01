@@ -490,6 +490,14 @@
   requestAnimationFrame(frame);
   drawRadar("#4fd3d6");
 
+  /* ---------- "how we built it" badges: tap to open on touch screens ---------- */
+  $$(".brand").forEach((b) => b.addEventListener("click", () => {
+    const open = !b.classList.contains("is-open");
+    $$(".brand.is-open").forEach((x) => x.classList.remove("is-open"));
+    b.classList.toggle("is-open", open);
+  }));
+  document.addEventListener("click", (e) => { if (!e.target.closest(".brand")) $$(".brand.is-open").forEach((x) => x.classList.remove("is-open")); });
+
   /* ---------- footer year ---------- */
   $("#year").textContent = new Date().getFullYear();
 })();
