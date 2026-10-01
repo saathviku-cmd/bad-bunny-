@@ -113,6 +113,50 @@
   }, 9000, TEAL, 0.045);
   const roverGroup = new THREE.Group(); roverGroup.add(rover); roverGroup.position.set(0, 0, 2); scene.add(roverGroup);
 
+  // Swap the sketch for a point cloud sampled from the real CAD model, when it loads.
+  if (THREE.GLTFLoader) {
+    const gl = new THREE.GLTFLoader();
+    if (window.MeshoptDecoder) gl.setMeshoptDecoder(window.MeshoptDecoder);
+    gl.load("assets/model/aanya.glb", (gltf) => {
+      const m = gltf.scene; m.updateMatrixWorld(true);
+      // Sample points evenly over the surface area, so flat panels show up as well as detailed parts.
+      const tris = [], area = [];
+      let total = 0;
+      const A = new THREE.Vector3(), B = new THREE.Vector3(), C = new THREE.Vector3(), t1 = new THREE.Vector3(), t2 = new THREE.Vector3();
+      m.traverse((o) => {
+        if (!o.isMesh) return;
+        const pos = o.geometry.attributes.position, idx = o.geometry.index;
+        const count = idx ? idx.count : pos.count;
+        for (let i = 0; i < count; i += 3) {
+          const ia = idx ? idx.getX(i) : i, ib = idx ? idx.getX(i + 1) : i + 1, ic = idx ? idx.getX(i + 2) : i + 2;
+          A.fromBufferAttribute(pos, ia).applyMatrix4(o.matrixWorld);
+          B.fromBufferAttribute(pos, ib).applyMatrix4(o.matrixWorld);
+          C.fromBufferAttribute(pos, ic).applyMatrix4(o.matrixWorld);
+          const ar = t1.subVectors(B, A).cross(t2.subVectors(C, A)).length() / 2;
+          if (ar <= 0) continue;
+          tris.push(A.x, A.y, A.z, B.x, B.y, B.z, C.x, C.y, C.z);
+          total += ar; area.push(total);
+        }
+      });
+      const keep = 18000, out = new Float32Array(keep * 3), box = new THREE.Box3();
+      for (let i = 0; i < keep; i++) {
+        const r = Math.random() * total;
+        let lo = 0, hi = area.length - 1;
+        while (lo < hi) { const mid = (lo + hi) >> 1; if (area[mid] < r) lo = mid + 1; else hi = mid; }
+        let u = Math.random(), w = Math.random();
+        if (u + w > 1) { u = 1 - u; w = 1 - w; }
+        const k = lo * 9;
+        for (let d = 0; d < 3; d++) out[i * 3 + d] = tris[k + d] + u * (tris[k + 3 + d] - tris[k + d]) + w * (tris[k + 6 + d] - tris[k + d]);
+      }
+      const g = new THREE.BufferGeometry(); g.setAttribute("position", new THREE.BufferAttribute(out, 3));
+      box.setFromBufferAttribute(g.attributes.position);
+      const size = box.getSize(new THREE.Vector3()), c = box.getCenter(new THREE.Vector3());
+      const s = 5.4 / Math.max(size.x, size.z);
+      g.translate(-c.x, -box.min.y, -c.z); g.scale(s, s, s);
+      rover.geometry.dispose(); rover.geometry = g; rover.material.size = 0.035;
+    });
+  }
+
   // floor ring under the rover
   const ringGeo = new THREE.RingGeometry(3.8, 3.86, 96);
   const ring = new THREE.Mesh(ringGeo, new THREE.MeshBasicMaterial({ color: TEAL, transparent: true, opacity: 0.6, side: THREE.DoubleSide }));
@@ -186,8 +230,8 @@
     { z: -20, tab: "action", title: "In action", text: "Real test footage. Click a screen to play it full size." },
     { z: -42, tab: "action", title: "The arm", text: "Servo-driven manipulator on a PCA9685 over I2C, with a gripper and camera." },
     { z: -64, tab: "control", title: "Mission control", text: "Our in-house dashboard: camera, LiDAR scan, telemetry and gamepad overdrive." },
-    { z: -86, tab: "build", title: "CAD to concrete", text: "Designed in CAD, built by hand in aluminium extrusion." },
-    { z: -104, tab: "enter", title: "Enter", text: "Keep scrolling to explore the full story, the team and how to reach us." },
+    { z: -86, tab: "build", title: "CAD to concrete", text: "Designed in Autodesk Fusion, built by hand: rocker-bogie suspension, aluminium frame." },
+    { z: -104, tab: "enter", title: "Enter", text: "Keep scrolling to take the rover apart in 3D, then meet the team." },
   ];
 
   // the door at the end of the hall
@@ -322,6 +366,7 @@
   word("BUILD", 0, 7.4, -92, 1.7);
   word("ENTER", 0, 3.4, -110.5, 1.8);
 
+  screen({ x: 5.4, z: -9, side: "right", label: "CONCEPT REVEAL", sub: "AI VIDEO · SEEDANCE", video: "assets/video/concept.mp4" });
   screen({ x: -4.9, z: -20, side: "left", label: "OFFICIAL TRAILER", sub: "16 S · CODE-RENDERED", video: "assets/video/trailer.mp4" });
   screen({ x: 4.9, z: -24, side: "right", label: "DRIVE TEST", sub: "6WD SKID-STEER", video: "assets/video/drive.mp4" });
   screen({ x: -4.9, z: -42, side: "left", label: "ARM", sub: "MULTI-AXIS · PCA9685", video: "assets/video/arm.mp4" });

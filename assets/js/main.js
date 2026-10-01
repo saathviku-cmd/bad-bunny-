@@ -215,10 +215,10 @@
       specs: [["Compute", "Jetson Orin Nano"], ["OS", "Ubuntu · JetPack"], ["Motor PWM", "sysfs · pwmchip0"], ["Logic rail", "Isolated 5 V / 3 A"]],
     },
     legs: {
-      tag: "CHASSIS",
-      title: "Leg linkage",
-      body: "Articulated legs carry three wheels per side, keeping all six in contact with the ground so the rover keeps traction over uneven terrain.",
-      specs: [["Wheels", "6 driven"], ["Layout", "3 per side"], ["Frame", "Aluminium extrusion"]],
+      tag: "SUSPENSION",
+      title: "Rocker-bogie",
+      body: "Each side has a rocker and a bogie, joined across the body by a differential, so all six wheels stay on the ground over rough terrain.",
+      specs: [["Wheels", "6 driven"], ["Suspension", "Rocker-bogie"], ["Linkage", "Differential shaft"]],
     },
     wheels: {
       tag: "DRIVETRAIN",

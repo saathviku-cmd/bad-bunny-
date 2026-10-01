@@ -40,6 +40,18 @@ Search `index.html` for `TODO`:
 
 Contact details (phone, email, WhatsApp) are in the Contact section and footer.
 
+## 3D model
+
+`assets/model/aanya.glb` powers the "Explore AANYA in 3D" viewer and the point-cloud rover in the hangar. It is made from the Fusion STEP export:
+
+```bash
+pip install cadquery-ocp trimesh scipy
+python tools/step_to_glb.py "assembly final.step" model-full.glb
+npx gltfpack -i model-full.glb -o assets/model/aanya.glb -kn -km -cc   # compress (~2.4 MB)
+```
+
+Part names shown on the site come from `tools/part_names.json` (rename rules, translations of vendor part names, which assemblies to split). Edit it and re-run to change what visitors see. STEP files are git-ignored.
+
 ## Deploy
 
 Static hosting works anywhere: Vercel, Netlify, or GitHub Pages (Settings → Pages → deploy from branch).

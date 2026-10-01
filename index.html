@@ -34,7 +34,7 @@
     </a>
     <nav class="nav__links" id="navLinks">
       <a href="#about">About</a>
-      <a href="#rover">Rover</a>
+      <a href="#explore">3D Rover</a>
       <a href="#engineering">Engineering</a>
       <a href="#action">In Action</a>
       <a href="#control">Mission Control</a>
@@ -75,6 +75,46 @@
           <p class="hangar__hover" id="hangarHover" hidden></p>
           <div class="hangar__hint">Scroll to walk · Click a screen · Turn on sound</div>
           <div class="hangar__progress" aria-hidden="true"><i id="hangarBar"></i></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 3D ROVER VIEWER ============ -->
+    <section class="section explore" id="explore" data-model="assets/model/aanya.glb" tabindex="-1">
+      <div class="wrap">
+        <div class="section__head">
+          <p class="kicker">Interactive · Take it apart</p>
+          <h2 class="h2">Explore AANYA in 3D.</h2>
+          <p class="muted">Straight from our CAD assembly in Autodesk Fusion. Drag to rotate, zoom right in, explode the assembly and click any part to see what it does.</p>
+        </div>
+        <div class="viewer">
+          <div class="viewer__stage">
+            <canvas id="viewerCanvas" class="viewer__canvas" aria-label="Interactive 3D model of the AANYA rover"></canvas>
+            <p class="viewer__status" id="viewerStatus">Loading 3D model…</p>
+            <div class="viewer__missing">
+              <img src="assets/img/render-front.webp" alt="CAD render of AANYA" loading="lazy" />
+              <div><b>Full 3D model coming soon</b><p>We're exporting the complete CAD assembly from Autodesk Fusion. Soon you'll be able to spin it, zoom in and take it apart right here.</p></div>
+            </div>
+            <p class="viewer__tip" id="viewerTip" hidden></p>
+            <div class="viewer__bar">
+              <label class="viewer__range">Explode <input type="range" id="explode" min="0" max="1" step="0.01" value="0" /></label>
+              <label class="viewer__chk"><input type="checkbox" id="xray" /> X-ray</label>
+              <label class="viewer__chk"><input type="checkbox" id="spin" /> Spin</label>
+              <button type="button" id="resetView">Reset view</button>
+            </div>
+          </div>
+          <aside class="viewer__side">
+            <div class="viewer__info" aria-live="polite">
+              <p class="kicker">Selected part</p>
+              <h3 id="partName">Click any part</h3>
+              <p class="viewer__meta" id="partMeta"></p>
+              <p class="muted" id="partDesc"></p>
+            </div>
+            <div class="viewer__parts">
+              <div class="viewer__parts-head"><input id="partSearch" type="search" placeholder="Search parts" aria-label="Search parts" /><span id="partCount"></span></div>
+              <ul id="partList"></ul>
+            </div>
+          </aside>
         </div>
       </div>
     </section>
@@ -165,7 +205,7 @@
             <button class="hotspot" style="left:62%;top:9%"  data-spot="arm"   aria-label="Robotic arm"><i></i></button>
             <button class="hotspot" style="left:52.5%;top:37%" data-spot="comms" aria-label="Antennas and sensors"><i></i></button>
             <button class="hotspot" style="left:45%;top:50%" data-spot="brain" aria-label="Electronics bay"><i></i></button>
-            <button class="hotspot" style="left:63%;top:48%" data-spot="legs"  aria-label="Leg linkage"><i></i></button>
+            <button class="hotspot" style="left:63%;top:48%" data-spot="legs"  aria-label="Rocker-bogie suspension"><i></i></button>
             <button class="hotspot" style="left:30.5%;top:75%" data-spot="wheels" aria-label="Wheels and drivetrain"><i></i></button>
           </div>
 
@@ -181,7 +221,7 @@
           <article class="spec reveal">
             <span class="spec__icon">◎</span>
             <h4>Drivetrain</h4>
-            <p>6WD high-traction platform with skid-steer kinematics: left and right wheel banks drive differentially for zero-radius turns.</p>
+            <p>6WD on a rocker-bogie suspension with a differential, so all six wheels stay planted. Skid-steer: left and right banks drive differentially for zero-radius turns.</p>
           </article>
           <article class="spec reveal">
             <span class="spec__icon">⚡</span>
@@ -325,6 +365,7 @@
             <li><button type="button" data-src="assets/video/grab.mp4" data-poster="assets/img/still-grab.jpg" data-title="GRIPPER PICK"><img src="assets/img/still-grab.jpg" alt="" loading="lazy"><span><b>Gripper pick</b>Taking objects from a hand</span></button></li>
             <li><button type="button" data-src="assets/video/lights.mp4" data-poster="assets/img/still-lights.jpg" data-title="LIGHTS TEST"><img src="assets/img/still-lights.jpg" alt="" loading="lazy"><span><b>Lights test</b>Onboard illumination</span></button></li>
             <li><button type="button" data-src="assets/video/dashboard.mp4" data-poster="assets/img/still-dashboard.jpg" data-title="MISSION CONTROL UI"><img src="assets/img/still-dashboard.jpg" alt="" loading="lazy"><span><b>Mission control</b>Our dashboard, running</span></button></li>
+            <li><button type="button" data-src="assets/video/concept.mp4" data-poster="assets/img/still-concept.jpg" data-title="AI CONCEPT REVEAL"><img src="assets/img/still-concept.jpg" alt="" loading="lazy"><span><b>Concept reveal</b>AI-generated with Seedance</span></button></li>
             <li><button type="button" data-src="assets/video/aanya-film.mp4" data-poster="assets/img/still-intro.jpg" data-title="FULL FILM"><img src="assets/img/still-intro.jpg" alt="" loading="lazy"><span><b>Full film</b>The complete 2:48 test reel</span></button></li>
           </ol>
         </div>
@@ -410,6 +451,7 @@
           <li class="done reveal"><b>Power isolation</b><span>Brownouts traced and fixed with a dual-rail architecture.</span></li>
           <li class="done reveal"><b>Kernel-level PWM</b><span>Pinmux unlocked; motors driven straight from sysfs.</span></li>
           <li class="done reveal"><b>Stress validated</b><span>60 s combined drive + arm load with zero brownouts.</span></li>
+          <li class="done reveal"><b>Dashboard v1</b><span>Mission control running: camera, LiDAR view, telemetry, gamepad.</span></li>
           <li class="now reveal"><b>Sensor fusion</b><span>Camera, 360° LiDAR and GPS into one live pipeline.</span></li>
           <li class="next reveal"><b>AI Pilot</b><span>A multimodal AI agent planning high-level navigation goals.</span></li>
           <li class="next reveal"><b>Mission control</b><span>Live dashboard with gamepad Manual Overdrive.</span></li>
@@ -437,6 +479,24 @@
       </div>
     </section>
 
+    <!-- ============ TOOLKIT ============ -->
+    <section class="section toolkit" id="toolkit">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">Our toolkit</p>
+          <h2 class="h2">The tools behind AANYA.</h2>
+          <p class="muted">Everything we design, build, code and film the rover with.</p>
+        </div>
+        <div class="tools">
+          <article class="tool reveal"><h4>Design</h4><ul><li><b>Autodesk Fusion</b>CAD, full assembly, renders</li></ul></article>
+          <article class="tool reveal"><h4>Compute</h4><ul><li><b>NVIDIA Jetson Orin Nano</b>Onboard edge-AI brain</li><li><b>Ubuntu + JetPack</b>Linux, kernel sysfs PWM</li></ul></article>
+          <article class="tool reveal"><h4>Electronics</h4><ul><li><b>Cytron MDD10A ×3</b>H-bridge motor drivers</li><li><b>PCA9685</b>12-bit servo PWM over I2C</li></ul></article>
+          <article class="tool reveal"><h4>Software</h4><ul><li><b>Python</b>Drive and arm control</li><li><b>React + Tailwind</b>Mission-control dashboard</li><li><b>three.js</b>This website's 3D</li></ul></article>
+          <article class="tool reveal"><h4>AI</h4><ul><li><b>Claude</b>Coding partner and this website</li><li><b>Gemini API</b>AI pilot (in progress)</li><li><b>Seedance</b>Concept reveal video</li></ul></article>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ TEAM ============ -->
     <section class="section team" id="team">
       <div class="wrap">
@@ -446,7 +506,7 @@
           <p class="muted">Team AANYA is organised like a real engineering team. Every division owns its subsystem from design to validation.</p>
         </div>
         <div class="divisions">
-          <article class="division reveal"><span class="division__n">MECH</span><h4>Mechanical</h4><p>Chassis, leg linkage, wheels and the multi-axis arm. Designed in CAD, built by hand in aluminium extrusion.</p></article>
+          <article class="division reveal"><span class="division__n">MECH</span><h4>Mechanical</h4><p>Chassis, rocker-bogie suspension, wheels and the multi-axis arm. Designed in CAD, built by hand in aluminium extrusion.</p></article>
           <article class="division reveal"><span class="division__n">ELEC</span><h4>Electronics &amp; Power</h4><p>Dual-rail power architecture, three Cytron H-bridges, wiring harness and the I2C servo bus.</p></article>
           <article class="division reveal"><span class="division__n">SOFT</span><h4>Software &amp; AI</h4><p>Kernel-level PWM drivers, sensor fusion, the AI pilot and the mission-control dashboard.</p></article>
           <article class="division reveal"><span class="division__n">OPS</span><h4>Management &amp; Outreach</h4><p>Planning, sponsorship, documentation and telling AANYA's story.</p></article>
@@ -466,10 +526,6 @@
           <article class="tier reveal"><span class="tier__name">Silver</span><ul><li>Logo on our website</li><li>Social media shout-outs</li><li>Project updates</li></ul></article>
           <article class="tier tier--hot reveal"><span class="tier__name">Gold</span><ul><li>Everything in Silver</li><li>Logo on the rover body</li><li>Logo on team merchandise</li></ul></article>
           <article class="tier reveal"><span class="tier__name">Platinum</span><ul><li>Everything in Gold</li><li>Prime logo placement on the rover</li><li>Live demo at your event or office</li></ul></article>
-        </div>
-        <div class="built-with reveal">
-          <span>Built with</span>
-          <ul><li>NVIDIA Jetson</li><li>Cytron MDD10A</li><li>PCA9685</li><li>Ubuntu Linux</li><li>Autodesk Fusion</li></ul>
         </div>
       </div>
     </section>
@@ -539,7 +595,12 @@
 
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/vendor/three.min.js" defer></script>
+  <script src="assets/js/vendor/meshopt_decoder.js" defer></script>
+  <script src="assets/js/vendor/GLTFLoader.js" defer></script>
+  <script src="assets/js/vendor/OrbitControls.js" defer></script>
+  <script src="assets/js/vendor/RoomEnvironment.js" defer></script>
   <script src="assets/js/hangar.js" defer></script>
+  <script src="assets/js/viewer.js" defer></script>
   <script src="assets/js/ambient.js" defer></script>
 </body>
 </html>

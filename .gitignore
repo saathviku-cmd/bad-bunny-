@@ -1,0 +1,4 @@
+# Raw CAD stays out of the repo; convert it with tools/step_to_glb.py
+*.step
+*.stp
+__pycache__/
