@@ -347,6 +347,21 @@ body:not(.has-hangar) .hangar { display: none; }
 .brands li:last-child .brand:hover .brand__tip, .brands li:last-child .brand.is-open .brand__tip, .brands li:last-child .brand:focus-visible .brand__tip { transform: translate(0, 0); }
 .toolkit__sub { margin-bottom: 14px; }
 
+/* ---------- crew ---------- */
+.crew { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: clamp(40px, 6vw, 70px); }
+.member { border: 1px solid var(--line); background: var(--panel); padding: 12px 12px 20px; transition: border-color 0.3s, transform 0.3s var(--ease); }
+.member:hover { border-color: var(--cyan); transform: translateY(-4px); }
+.member--captain { border-color: rgba(79, 211, 214, 0.45); }
+.member__ph { aspect-ratio: 4 / 5; overflow: hidden; background: var(--bg-2); margin-bottom: 14px; }
+.member__ph img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9) contrast(1.03); transition: filter 0.5s, transform 0.6s var(--ease); }
+.member:hover .member__ph img { filter: none; transform: scale(1.04); }
+.member__tag { display: inline-block; margin: 0 4px 8px; padding: 4px 8px; font: 600 0.64rem/1 var(--f-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--cyan); border: 1px solid rgba(79, 211, 214, 0.4); }
+.member--captain .member__tag { background: var(--grad); color: #021014; border: 0; }
+.member h4 { margin: 0 4px 6px; font: 700 1.15rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: 0.02em; }
+.member p { margin: 0 4px; font-size: 0.88rem; color: var(--muted); }
+.crew__sub { margin-bottom: 14px; }
+.division__lead { display: block; margin: -2px 0 10px; font: 600 0.66rem/1.3 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
+
 /* ---------- engineering ---------- */
 .eng { background: var(--bg-2); }
 .case { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 70px); align-items: center; padding: clamp(28px, 4vw, 50px) 0; border-top: 1px solid var(--line); }
@@ -579,6 +594,7 @@ body:not(.has-hangar) .hangar { display: none; }
   .viewer__side { height: auto; grid-template-rows: auto 260px; }
   .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .crew { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .player { grid-template-columns: 1fr; }
   .player__list { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
   .foot__top { grid-template-columns: 1fr 1fr; }
@@ -607,6 +623,9 @@ body:not(.has-hangar) .hangar { display: none; }
   .divisions, .foot__top { grid-template-columns: 1fr; }
   .tools { grid-template-columns: 1fr; }
   .college__name { display: none; }
+  .crew { gap: 10px; }
+  .member { padding: 8px 8px 14px; }
+  .member h4 { font-size: 0.98rem; }
   .college { margin-left: 10px; padding: 4px; }
   .brands { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .brand__tip { width: 200px; }
