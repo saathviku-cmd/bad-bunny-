@@ -46,6 +46,35 @@
 
   <main id="top">
 
+    <!-- ============ 3D HANGAR (scroll to walk) ============ -->
+    <section class="hangar" id="hangar" aria-label="3D walk-through of the AANYA hangar">
+      <div class="hangar__stick">
+        <canvas id="hangarCanvas" class="hangar__canvas"></canvas>
+        <div class="hangar__ui">
+          <nav class="hangar__tabs" aria-label="Jump to a part of the hall">
+            <button type="button" data-hangar-tab="rover" class="is-on">Rover</button>
+            <button type="button" data-hangar-tab="action">In action</button>
+            <button type="button" data-hangar-tab="control">Mission control</button>
+            <button type="button" data-hangar-tab="build">Build</button>
+            <button type="button" data-hangar-tab="enter">Enter</button>
+          </nav>
+          <div class="hangar__intro" id="hangarIntro">
+            <p class="eyebrow"><span class="pulse"></span>Student Robotics Team</p>
+            <h1 class="hangar__title">TEAM <span>AANYA</span></h1>
+            <p class="hangar__lead">A six-wheel-drive autonomous rover with a robotic arm and an edge-AI brain. Scroll to walk through our hangar.</p>
+            <button class="btn btn--ghost" id="watchBtn" type="button"><span class="play"></span>Watch the trailer</button>
+          </div>
+          <div class="hangar__caption">
+            <b id="hangarStation">01 · The machine</b>
+            <span id="hangarText">AANYA: a 6WD skid-steer rover with a multi-axis arm and an NVIDIA Jetson edge-AI brain.</span>
+          </div>
+          <p class="hangar__hover" id="hangarHover" hidden></p>
+          <div class="hangar__hint">Scroll to walk · Click a screen</div>
+          <div class="hangar__progress" aria-hidden="true"><i id="hangarBar"></i></div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <div class="hero__media" id="heroMedia">
@@ -68,13 +97,13 @@
       <div class="hero__content hero__content--center">
         <img class="hero__mark" src="assets/img/logo-mark.svg" alt="" />
         <p class="eyebrow"><span class="pulse"></span>Student Robotics Team</p>
-        <h1 class="hero__title">
+        <h2 class="hero__title">
           <span class="hero__title-solid">TEAM</span>
           <span class="hero__title-outline" data-text="AANYA">AANYA</span>
-        </h1>
+        </h2>
         <p class="hero__sub">Engineering autonomy, one wheel at a time. We build a <b>six-wheel-drive autonomous rover</b> with a <b>robotic arm</b> and an <b>edge-AI brain</b>, from CAD to concrete floor.</p>
         <div class="hero__cta">
-          <button class="btn btn--primary" id="watchBtn" type="button"><span class="play"></span>Watch the trailer</button>
+          <button class="btn btn--primary" id="watchBtnHero" type="button"><span class="play"></span>Watch the trailer</button>
           <a href="#rover" class="btn btn--ghost">Explore the rover</a>
         </div>
       </div>
@@ -505,5 +534,7 @@
   </div>
 
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/vendor/three.min.js" defer></script>
+  <script src="assets/js/hangar.js" defer></script>
 </body>
 </html>

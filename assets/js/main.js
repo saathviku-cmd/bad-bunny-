@@ -148,9 +148,11 @@
     const img = $("img", f);
     openModal(`<img src="${img.getAttribute("src")}" alt="${img.alt}">`);
   }));
-  $("#watchBtn").addEventListener("click", () => {
-    openModal(`<video src="assets/video/trailer.mp4" controls autoplay playsinline></video>`);
-  });
+  const playTrailer = () => openModal(`<video src="assets/video/trailer.mp4" controls autoplay playsinline></video>`);
+  ["#watchBtn", "#watchBtnHero"].forEach((id) => { const b = $(id); if (b) b.addEventListener("click", playTrailer); });
+  // Used by the 3D hangar (hangar.js) when a screen is clicked.
+  window.aanyaOpenVideo = (src) => openModal(`<video src="${src}" controls autoplay playsinline loop></video>`);
+  window.aanyaOpenImage = (src, alt) => openModal(`<img src="${src}" alt="${alt}">`);
 
   /* ---------- in-action player ---------- */
   const player = $("#playerVideo");

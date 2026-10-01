@@ -192,6 +192,36 @@ body.is-booting .hero__title-outline::after { animation-play-state: paused; }
 @keyframes grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-6%, 4%); } 50% { transform: translate(4%, -6%); } 75% { transform: translate(-3%, -2%); } 100% { transform: translate(0, 0); } }
 .dot--rec { background: var(--red); box-shadow: 0 0 10px var(--red); animation: blink 1.2s steps(1) infinite; }
 
+/* ---------- 3D hangar ---------- */
+.hangar { position: relative; height: 700vh; background: #000; }
+.hangar__stick { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+.hangar__canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.hangar__ui { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(0, 0, 0, 0.75), transparent 45%), linear-gradient(to right, rgba(0, 0, 0, 0.55), transparent 50%); }
+.hangar__ui > * { pointer-events: auto; }
+.hangar__tabs { position: absolute; top: 92px; left: 50%; transform: translateX(-50%); display: flex; gap: clamp(10px, 2.4vw, 34px); max-width: calc(100% - 32px); overflow-x: auto; scrollbar-width: none; }
+.hangar__tabs button { background: none; border: 0; padding: 6px 2px; font: 600 clamp(0.72rem, 1.2vw, 0.95rem)/1 var(--f-mono); letter-spacing: 0.32em; text-transform: uppercase; color: rgba(233, 238, 243, 0.42); white-space: nowrap; transition: color 0.25s; }
+.hangar__tabs button:hover, .hangar__tabs button.is-on { color: #fff; }
+.hangar__tabs button.is-on { text-shadow: 0 0 14px rgba(79, 211, 214, 0.8); }
+.hangar__tabs button:focus-visible { outline: 1px solid var(--cyan); outline-offset: 4px; }
+.hangar__intro { position: absolute; left: var(--gutter); bottom: clamp(90px, 14vh, 150px); max-width: 560px; transition: opacity 0.2s; }
+.hangar__title { margin: 0; font: 700 clamp(3rem, 9vw, 7.5rem)/0.9 var(--f-display); letter-spacing: 0.02em; color: #fff; }
+.hangar__title span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hangar__lead { color: #c9d3dc; font-size: clamp(0.98rem, 1.4vw, 1.12rem); margin: 1rem 0 1.4rem; max-width: 46ch; }
+.hangar__caption { position: absolute; left: var(--gutter); bottom: 28px; max-width: min(520px, calc(100% - 120px)); display: grid; gap: 4px; font-size: 0.88rem; color: #b9c4cf; }
+.hangar__caption b { font: 600 0.75rem/1 var(--f-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--cyan); }
+.hangar__hover { position: absolute; left: 50%; bottom: 84px; transform: translateX(-50%); margin: 0; padding: 10px 16px; background: rgba(0, 0, 0, 0.7); border: 1px solid var(--cyan); font: 600 0.75rem/1 var(--f-mono); letter-spacing: 0.16em; text-transform: uppercase; color: #fff; pointer-events: none; }
+.hangar__hint { position: absolute; right: var(--gutter); bottom: 28px; font: 600 0.68rem/1 var(--f-mono); letter-spacing: 0.2em; text-transform: uppercase; color: rgba(233, 238, 243, 0.55); }
+.hangar__progress { position: absolute; right: var(--gutter); top: 50%; width: 2px; height: 28vh; transform: translateY(-50%); background: rgba(255, 255, 255, 0.12); }
+.hangar__progress i { position: absolute; inset: 0; background: var(--cyan); transform-origin: top; transform: scaleY(0); }
+body.has-hangar .hero { display: none; }
+body:not(.has-hangar) .hangar { display: none; }
+@media (max-width: 600px) {
+  .hangar { height: 600vh; }
+  .hangar__tabs { top: 78px; justify-content: flex-start; }
+  .hangar__hint { display: none; }
+  .hangar__caption { max-width: calc(100% - 48px); }
+}
+
 /* ---------- ticker ---------- */
 .ticker { overflow: hidden; border-block: 1px solid var(--line); background: var(--bg-2); padding: 18px 0; }
 .ticker__track { display: flex; width: max-content; animation: marquee 40s linear infinite; }
