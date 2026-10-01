@@ -33,7 +33,7 @@
   const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
 
   /* ---------- hall geometry ---------- */
-  const HALL_W = 8, HALL_H = 9, Z0 = 14, Z1 = -112;
+  const HALL_W = 8, HALL_H = 9, Z0 = 14, Z1 = -130;
   const lineMat = new THREE.LineBasicMaterial({ color: WHITE, transparent: true, opacity: 0.42 });
   const faintMat = new THREE.LineBasicMaterial({ color: WHITE, transparent: true, opacity: 0.12 });
   function lines(pts, mat = lineMat) {
@@ -206,9 +206,9 @@
   /* ---------- screens ---------- */
   const screens = [];
   const loader = new THREE.TextureLoader();
-  function screen({ x, z, w = 6.4, label, sub, video, image, side }) {
+  function screen({ x, z, w = 6.4, h: hh, label, sub, video, image, side }) {
     video = video && asset(video); image = image && asset(image);
-    const h = w * 9 / 16, y = 4.1;
+    const h = hh || w * 9 / 16, y = 4.1;
     let tex, vid = null;
     if (video) {
       vid = document.createElement("video");
@@ -248,13 +248,14 @@
     { z: -42, tab: "action", title: "The arm", text: "Servo-driven manipulator on a PCA9685 over I2C, with a gripper and camera." },
     { z: -64, tab: "control", title: "Mission control", text: "Our in-house dashboard: camera, LiDAR scan, telemetry and gamepad overdrive." },
     { z: -86, tab: "build", title: "CAD to concrete", text: "Designed in Autodesk Fusion, built by hand: rocker-bogie suspension, aluminium frame." },
-    { z: -104, tab: "enter", title: "Enter", text: "Keep scrolling to take the rover apart in 3D, then meet the team." },
+    { z: -100, tab: "crew", title: "The crew", text: "Chaitanya Vishwakarma (captain), UK Saathvik (electrical & electronics), Mugunth S (automation & AI) and Shreyas S (mechanical)." },
+    { z: -122, tab: "enter", title: "Enter", text: "Keep scrolling to take the rover apart in 3D, then meet the team." },
   ];
 
   // the door at the end of the hall
-  lines([[-2, 0, -110], [-2, 5.4, -110], [-2, 5.4, -110], [2, 5.4, -110], [2, 5.4, -110], [2, 0, -110], [-1.7, 0, -110], [-1.7, 5.1, -110], [-1.7, 5.1, -110], [1.7, 5.1, -110], [1.7, 5.1, -110], [1.7, 0, -110]]);
+  lines([[-2, 0, -128], [-2, 5.4, -128], [-2, 5.4, -128], [2, 5.4, -128], [2, 5.4, -128], [2, 0, -128], [-1.7, 0, -128], [-1.7, 5.1, -128], [-1.7, 5.1, -128], [1.7, 5.1, -128], [1.7, 5.1, -128], [1.7, 0, -128]]);
   const doorGlow = new THREE.Mesh(new THREE.PlaneGeometry(3.4, 5.1), new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.08 }));
-  doorGlow.position.set(0, 2.55, -110.05); scene.add(doorGlow);
+  doorGlow.position.set(0, 2.55, -128.05); scene.add(doorGlow);
 
   /* ---------- UI ---------- */
   const ui = {
@@ -265,7 +266,7 @@
     hover: document.getElementById("hangarHover"),
     tabs: [...document.querySelectorAll("[data-hangar-tab]")],
   };
-  const CAM_START = Z0 - 2, CAM_END = -101;
+  const CAM_START = Z0 - 2, CAM_END = -119;
   const zToProgress = (z) => (CAM_START - z) / (CAM_START - CAM_END);
   ui.tabs.forEach((b) => b.addEventListener("click", () => {
     const st = STATIONS.find((s) => s.tab === b.dataset.hangarTab);
@@ -381,7 +382,8 @@
   word("IN ACTION", 0, 7.4, -30, 1.7);
   word("MISSION CONTROL", 0, 7.4, -70, 1.4);
   word("BUILD", 0, 7.4, -92, 1.7);
-  word("ENTER", 0, 3.4, -110.5, 1.8);
+  word("THE CREW", 0, 7.4, -96, 1.7);
+  word("ENTER", 0, 3.4, -128.5, 1.8);
 
   screen({ x: 5.4, z: -9, side: "right", label: "CONCEPT REVEAL", sub: "AI VIDEO · SEEDANCE", video: "assets/video/concept.mp4" });
   screen({ x: -4.9, z: -20, side: "left", label: "OFFICIAL TRAILER", sub: "16 S · CODE-RENDERED", video: "assets/video/trailer.mp4" });
@@ -392,6 +394,10 @@
   screen({ x: -4.9, z: -66, side: "left", label: "LIGHTS", sub: "ONBOARD ILLUMINATION", video: "assets/video/lights.mp4" });
   screen({ x: -4.9, z: -86, side: "left", label: "CAD RENDER", sub: "FRONT THREE-QUARTER", image: "assets/img/render-front.webp" });
   screen({ x: 4.9, z: -88, side: "right", label: "PROTOTYPE", sub: "THE REAL BUILD", image: "assets/img/still-arm.jpg" });
+  screen({ x: -4.4, z: -101, side: "left", w: 2.8, h: 3.5, label: "CHAITANYA V.", sub: "TEAM CAPTAIN", image: "assets/img/team/chaitanya.jpg" });
+  screen({ x: 4.4, z: -101, side: "right", w: 2.8, h: 3.5, label: "UK SAATHVIK", sub: "ELECTRICAL & ELECTRONICS", image: "assets/img/team/saathvik.jpg" });
+  screen({ x: -4.4, z: -110, side: "left", w: 2.8, h: 3.5, label: "MUGUNTH S", sub: "AUTOMATION & AI", image: "assets/img/team/mugunth.jpg" });
+  screen({ x: 4.4, z: -110, side: "right", w: 2.8, h: 3.5, label: "SHREYAS S", sub: "MECHANICAL", image: "assets/img/team/shreyas.jpg" });
 
   }
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => {
