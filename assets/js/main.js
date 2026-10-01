@@ -131,11 +131,13 @@
     lastFocus = document.activeElement;
     modalBody.innerHTML = html;
     modal.hidden = false;
+    if (window.aanyaAudio) window.aanyaAudio.duck(true);
     document.body.style.overflow = "hidden";
     $("#modalX").focus();
   }
   function closeModal() {
     modal.hidden = true;
+    if (window.aanyaAudio) window.aanyaAudio.duck(false);
     modalBody.innerHTML = "";
     document.body.style.overflow = "";
     if (lastFocus) lastFocus.focus();

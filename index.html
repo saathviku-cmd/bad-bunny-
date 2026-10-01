@@ -41,6 +41,7 @@
       <a href="#team">Team</a>
       <a href="#contact" class="btn btn--sm btn--primary">Contact us</a>
     </nav>
+    <button class="sound" type="button" data-sound-toggle aria-pressed="false" aria-label="Background music"><span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound__label" data-sound-label>Sound off</span></button>
     <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><i></i><i></i></button>
   </header>
 
@@ -62,14 +63,17 @@
             <p class="eyebrow"><span class="pulse"></span>Student Robotics Team</p>
             <h1 class="hangar__title">TEAM <span>AANYA</span></h1>
             <p class="hangar__lead">A six-wheel-drive autonomous rover with a robotic arm and an edge-AI brain. Scroll to walk through our hangar.</p>
-            <button class="btn btn--ghost" id="watchBtn" type="button"><span class="play"></span>Watch the trailer</button>
+            <div class="hangar__cta">
+              <button class="btn btn--ghost" id="watchBtn" type="button"><span class="play"></span>Watch the trailer</button>
+              <button class="btn btn--ghost sound sound--big" type="button" data-sound-toggle aria-pressed="false"><span class="sound__bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span data-sound-label>Sound off</span></button>
+            </div>
           </div>
           <div class="hangar__caption">
             <b id="hangarStation">01 · The machine</b>
             <span id="hangarText">AANYA: a 6WD skid-steer rover with a multi-axis arm and an NVIDIA Jetson edge-AI brain.</span>
           </div>
           <p class="hangar__hover" id="hangarHover" hidden></p>
-          <div class="hangar__hint">Scroll to walk · Click a screen</div>
+          <div class="hangar__hint">Scroll to walk · Click a screen · Turn on sound</div>
           <div class="hangar__progress" aria-hidden="true"><i id="hangarBar"></i></div>
         </div>
       </div>
@@ -536,5 +540,6 @@
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/vendor/three.min.js" defer></script>
   <script src="assets/js/hangar.js" defer></script>
+  <script src="assets/js/ambient.js" defer></script>
 </body>
 </html>

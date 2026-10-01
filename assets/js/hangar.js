@@ -258,7 +258,7 @@
   }).observe(section);
 
   /* ---------- loop ---------- */
-  let last = performance.now(), stationIdx = -1;
+  let last = performance.now(), stationIdx = -1, lastAudioProg = -1;
   function frame(t) {
     requestAnimationFrame(frame);
     if (!visible) return;
@@ -300,6 +300,7 @@
     ui.intro.style.opacity = String(Math.max(0, 1 - prog * 14));
     ui.intro.style.pointerEvents = prog > 0.06 ? "none" : "";
     ui.bar.style.transform = `scaleY(${prog})`;
+    if (window.aanyaAudio && Math.abs(prog - lastAudioProg) > 0.01) { lastAudioProg = prog; window.aanyaAudio.setProgress(prog); }
     let idx = 0;
     STATIONS.forEach((s, i) => { if (z < s.z + 17) idx = i; });
     if (idx !== stationIdx) {
