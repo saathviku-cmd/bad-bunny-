@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Team AANYA — Autonomous 6WD Rover</title>
+  <meta name="description" content="Team AANYA is a student robotics team building a 6-wheel-drive autonomous rover with a robotic arm and an NVIDIA Jetson edge-AI brain." />
+  <meta name="theme-color" content="#05070a" />
+  <meta property="og:title" content="Team AANYA — Autonomous 6WD Rover" />
+  <meta property="og:description" content="A student-built 6WD autonomous rover with a robotic arm and an edge-AI brain." />
+  <meta property="og:image" content="assets/img/render-side.webp" />
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <!-- ============ BOOT PRELOADER ============ -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__inner">
+      <div class="boot__logo"><img src="assets/img/logo-mark.svg" alt="" />AANYA<span>//OS</span></div>
+      <ul class="boot__log" id="bootLog"></ul>
+      <div class="boot__bar"><i id="bootBar"></i></div>
+    </div>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a href="#top" class="nav__brand" aria-label="Team AANYA home">
+      <img src="assets/img/logo-mark.svg" alt="" class="nav__mark" />
+      <span>TEAM <b>AANYA</b></span>
+    </a>
+    <nav class="nav__links" id="navLinks">
+      <a href="#rover">Rover</a>
+      <a href="#engineering">Engineering</a>
+      <a href="#control">Mission Control</a>
+      <a href="#journey">Journey</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#team">Team</a>
+      <a href="#contact" class="btn btn--sm btn--primary">Sponsor us</a>
+    </nav>
+    <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><i></i><i></i></button>
+  </header>
+
+  <main id="top">
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero__media" id="heroMedia">
+        <!-- Drop a clip at assets/video/hero.mp4 and it plays automatically behind the hero. -->
+        <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="assets/img/render-side.webp">
+          <source src="assets/video/hero.mp4" type="video/mp4" />
+        </video>
+        <img class="hero__img" src="assets/img/render-side.webp" alt="CAD render of the AANYA rover: black chassis, six wheels on articulated legs and a robotic arm" />
+      </div>
+      <div class="hero__shade"></div>
+      <div class="hero__grid"></div>
+      <img class="hero__logo" src="assets/img/logo-vertical.svg" alt="" aria-hidden="true" />
+
+      <div class="hud hud--tl"><span class="dot dot--ok"></span>SYS NOMINAL<br><small id="hudClock">--:--:--</small></div>
+      <div class="hud hud--tr">6WD · SKID-STEER<br><small>ZERO-RADIUS YAW</small></div>
+      <div class="hud hud--bl">EDGE&nbsp;NODE<br><small>JETSON ORIN NANO</small></div>
+      <div class="hud hud--br">SCROLL<br><small class="hud__arrow">↓</small></div>
+
+      <div class="hero__content">
+        <p class="eyebrow"><span class="pulse"></span>Student Robotics Team</p>
+        <h1 class="hero__title">
+          <span class="hero__title-solid">TEAM</span>
+          <span class="hero__title-outline" data-text="AANYA">AANYA</span>
+        </h1>
+        <p class="hero__sub">We design, build and debug a <b>six-wheel-drive autonomous rover</b> with a <b>robotic arm</b> and an <b>edge-AI brain</b>. From CAD to concrete floor.</p>
+        <div class="hero__cta">
+          <a href="#rover" class="btn btn--primary">Explore the rover</a>
+          <button class="btn btn--ghost" id="watchBtn" type="button"><span class="play"></span>Watch it move</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TICKER ============ -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>6WD SKID-STEER</span><span>ZERO-RADIUS TURNS</span><span>NVIDIA JETSON ORIN NANO</span><span>EDGE AI</span><span>360° LIDAR</span><span>GPS TELEMETRY</span><span>MULTI-AXIS ARM</span><span>AI PILOT</span><span>MANUAL OVERDRIVE</span>
+        <span>6WD SKID-STEER</span><span>ZERO-RADIUS TURNS</span><span>NVIDIA JETSON ORIN NANO</span><span>EDGE AI</span><span>360° LIDAR</span><span>GPS TELEMETRY</span><span>MULTI-AXIS ARM</span><span>AI PILOT</span><span>MANUAL OVERDRIVE</span>
+      </div>
+    </div>
+
+    <!-- ============ ABOUT ============ -->
+    <section class="section about" id="about">
+      <div class="wrap about__grid">
+        <div class="reveal">
+          <p class="kicker">01 — Who we are</p>
+          <h2 class="h2">A college team building a rover that thinks for itself.</h2>
+        </div>
+        <div class="reveal">
+          <!-- TODO: replace [Your College] with your college name -->
+          <p class="lead">Team AANYA is a group of students from <b>[Your College]</b> who wanted to build a real field robot, not a kit. We designed the chassis in CAD, built it by hand, wired every motor driver and wrote the control stack straight against the Linux kernel.</p>
+          <p class="muted">The result is AANYA: a rugged, universal mobile platform that drives on six wheels, carries a multi-axis manipulator, and runs its intelligence on an onboard NVIDIA Jetson. Our goal is a rover that can see, map, and navigate on its own, while a human can always take back control in an instant.</p>
+        </div>
+      </div>
+
+      <div class="wrap stats">
+        <div class="stat reveal"><b data-count="6">0</b><span>Driven wheels</span></div>
+        <div class="stat reveal"><b data-count="3">0</b><span>H-bridge motor drivers</span></div>
+        <div class="stat reveal"><b data-count="2">0</b><span>Isolated power rails</span></div>
+        <div class="stat reveal"><b data-count="60" data-suffix="s">0</b><span>Full-load stress test</span></div>
+        <div class="stat reveal"><b data-count="0">0</b><span>Brownouts after the fix</span></div>
+      </div>
+    </section>
+
+    <!-- ============ ROVER / HOTSPOTS ============ -->
+    <section class="section rover" id="rover">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">02 — The machine</p>
+          <h2 class="h2">Meet AANYA.</h2>
+          <p class="muted">Tap the markers to explore the subsystems.</p>
+        </div>
+
+        <div class="explorer reveal">
+          <div class="explorer__stage" id="stage">
+            <img src="assets/img/render-front.webp" alt="Three-quarter CAD render of the AANYA rover with the robotic arm raised" />
+            <button class="hotspot" style="left:62%;top:9%"  data-spot="arm"   aria-label="Robotic arm"><i></i></button>
+            <button class="hotspot" style="left:52.5%;top:37%" data-spot="comms" aria-label="Antennas and sensors"><i></i></button>
+            <button class="hotspot" style="left:45%;top:50%" data-spot="brain" aria-label="Electronics bay"><i></i></button>
+            <button class="hotspot" style="left:63%;top:48%" data-spot="legs"  aria-label="Leg linkage"><i></i></button>
+            <button class="hotspot" style="left:30.5%;top:75%" data-spot="wheels" aria-label="Wheels and drivetrain"><i></i></button>
+          </div>
+
+          <aside class="explorer__panel" id="spotPanel" aria-live="polite">
+            <p class="kicker" id="spotTag">SUBSYSTEM</p>
+            <h3 id="spotTitle">Select a marker</h3>
+            <p id="spotBody" class="muted">Every part of AANYA was designed and integrated by the team. Pick a marker on the rover to see how it works.</p>
+            <ul id="spotSpecs" class="specs"></ul>
+          </aside>
+        </div>
+
+        <div class="spec-grid">
+          <article class="spec reveal">
+            <span class="spec__icon">◎</span>
+            <h4>Drivetrain</h4>
+            <p>6WD high-traction platform with skid-steer kinematics: left and right wheel banks drive differentially for zero-radius turns.</p>
+          </article>
+          <article class="spec reveal">
+            <span class="spec__icon">⚡</span>
+            <h4>Power stage</h4>
+            <p>3× Cytron MDD10A dual-channel NMOS H-bridges drive all six brushed DC motors from a dedicated high-current battery rail.</p>
+          </article>
+          <article class="spec reveal">
+            <span class="spec__icon">✦</span>
+            <h4>Manipulator</h4>
+            <p>Multi-axis robotic arm driven by a PCA9685 12-bit PWM servo controller over an isolated I2C bus.</p>
+          </article>
+          <article class="spec reveal">
+            <span class="spec__icon">▣</span>
+            <h4>Edge brain</h4>
+            <p>NVIDIA Jetson Orin Nano on Ubuntu, driving motors directly through Linux kernel sysfs PWM with no microcontroller in between.</p>
+          </article>
+          <article class="spec reveal">
+            <span class="spec__icon">◉</span>
+            <h4>Perception</h4>
+            <p>Camera stream, 360° LiDAR point cloud and GPS telemetry fused into one live picture of the world. <em>In progress.</em></p>
+          </article>
+          <article class="spec reveal">
+            <span class="spec__icon">⇄</span>
+            <h4>Control modes</h4>
+            <p>AI Pilot for autonomous navigation, and Manual Overdrive: a gamepad that instantly overrides the AI for safety. <em>In progress.</em></p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ENGINEERING ============ -->
+    <section class="section eng" id="engineering">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">03 — Engineering log</p>
+          <h2 class="h2">Problems we hit.<br>How we beat them.</h2>
+        </div>
+
+        <!-- Case 1: Power -->
+        <article class="case reveal">
+          <div class="case__text">
+            <span class="badge badge--red">BUG 001 · POWER</span>
+            <h3>The rover kept killing its own brain.</h3>
+            <dl class="rcf">
+              <dt>Problem</dt><dd>Hard skid-steer turns pulled huge transient currents. The logic rail sagged and the Jetson crashed mid-manoeuvre.</dd>
+              <dt>Root cause</dt><dd>Motors and compute shared one supply, so every current spike from the drivetrain hit the processor too.</dd>
+              <dt>Fix</dt><dd>Dual-rail power segregation. A high-current pack feeds the motor drivers directly; an independent clean 5 V / 3 A line powers the Jetson. Both share a single ground reference at header Pin 6 to avoid ground loops.</dd>
+            </dl>
+          </div>
+          <div class="case__viz">
+            <svg viewBox="0 0 420 300" class="rails" role="img" aria-label="Diagram: battery pack feeds three motor drivers and six motors; a separate 5 volt supply feeds the Jetson; both share one ground at pin 6">
+              <defs>
+                <marker id="arw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+              </defs>
+              <!-- motor rail -->
+              <g class="rail rail--hot">
+                <rect x="14" y="30" width="110" height="54" rx="8"/>
+                <text x="69" y="54">BATTERY</text><text x="69" y="70" class="sm">HIGH CURRENT</text>
+                <path class="flow" d="M124 57 H 176"/>
+                <rect x="176" y="20" width="110" height="74" rx="8"/>
+                <text x="231" y="50">3× MDD10A</text><text x="231" y="66" class="sm">H-BRIDGES</text>
+                <path class="flow" d="M286 57 H 330"/>
+                <rect x="330" y="30" width="76" height="54" rx="8"/>
+                <text x="368" y="54">6× DC</text><text x="368" y="70" class="sm">MOTORS</text>
+              </g>
+              <!-- logic rail -->
+              <g class="rail rail--cool">
+                <rect x="14" y="170" width="110" height="54" rx="8"/>
+                <text x="69" y="194">5V / 3A</text><text x="69" y="210" class="sm">CLEAN SUPPLY</text>
+                <path class="flow" d="M124 197 H 176"/>
+                <rect x="176" y="160" width="110" height="74" rx="8"/>
+                <text x="231" y="190">JETSON</text><text x="231" y="206" class="sm">ORIN NANO</text>
+                <path class="flow" d="M286 197 H 330"/>
+                <rect x="330" y="170" width="76" height="54" rx="8"/>
+                <text x="368" y="194">PCA9685</text><text x="368" y="210" class="sm">ARM · I2C</text>
+              </g>
+              <!-- signal + ground -->
+              <path class="sig" d="M231 160 V 94" marker-end="url(#arw)"/>
+              <text x="240" y="132" class="sm sig-label" text-anchor="start">PWM / DIR</text>
+              <path class="gnd" d="M100 94 V 130 H 160 M160 130 V 160"/>
+              <text x="34" y="150" class="sm gnd-label">COMMON GND · PIN 6</text>
+              <text x="210" y="270" class="cap">Motor current never touches the logic rail.</text>
+            </svg>
+          </div>
+        </article>
+
+        <!-- Case 2: Pinmux -->
+        <article class="case case--flip reveal">
+          <div class="case__text">
+            <span class="badge badge--red">BUG 002 · KERNEL</span>
+            <h3>“Device or resource busy.”</h3>
+            <dl class="rcf">
+              <dt>Problem</dt><dd>Driving motors through Python <code>Jetson.GPIO</code> kept failing with a busy-device error on header Pins 32 and 33.</dd>
+              <dt>Root cause</dt><dd>The device tree had those pins locked to special-function (audio) duties, so the OS refused to hand them over.</dd>
+              <dt>Fix</dt><dd>Reconfigured the 40-pin header with NVIDIA's <code>jetson-io.py</code> to free Pins 32/33 as hardware PWM, then dropped the high-level library and wrote straight to the kernel's sysfs PWM interface for deterministic, low-latency control. No Arduino, no ESP32.</dd>
+            </dl>
+          </div>
+          <div class="case__viz">
+            <div class="term" id="term">
+              <div class="term__bar"><i></i><i></i><i></i><span>aanya@jetson: ~</span></div>
+              <pre class="term__body" id="termBody"></pre>
+            </div>
+          </div>
+        </article>
+
+        <!-- Validation -->
+        <article class="validate reveal">
+          <div>
+            <span class="badge badge--green">VALIDATED</span>
+            <h3>60-second combined stress test</h3>
+            <p class="muted">Chassis on blocks. All six drive channels and the arm channels running together at 35% duty cycle, continuously.</p>
+          </div>
+          <ul class="checks">
+            <li>Zero system brownouts</li>
+            <li>Stable logic-rail voltage</li>
+            <li>Consistent motor-driver status LEDs</li>
+            <li>Clean thermals on H-bridges and Jetson</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ MISSION CONTROL ============ -->
+    <section class="section control" id="control">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">04 — Mission control</p>
+          <h2 class="h2">One console. Two pilots.</h2>
+          <p class="muted">A preview of the dashboard we're building. Plug in a gamepad (or use <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd>) in Manual Overdrive and watch the skid-steer mixing respond. Sensor data here is simulated until the rover goes live.</p>
+        </div>
+
+        <div class="console reveal" id="console" data-mode="ai">
+          <div class="console__top">
+            <div class="console__id"><span class="dot dot--ok"></span>AANYA-01 <small>SIMULATION</small></div>
+            <div class="mode" role="group" aria-label="Control mode">
+              <button type="button" class="mode__btn is-on" data-mode="ai">AI PILOT</button>
+              <button type="button" class="mode__btn" data-mode="manual">MANUAL OVERDRIVE</button>
+            </div>
+            <div class="console__clock" id="uptime">T+00:00:00</div>
+          </div>
+
+          <div class="console__grid">
+            <div class="panel panel--radar">
+              <div class="panel__label">LIDAR · 360°</div>
+              <canvas id="radar" width="480" height="480" aria-label="Simulated LiDAR radar sweep"></canvas>
+              <div class="panel__foot"><span>NEAREST</span><b id="nearest">— m</b></div>
+            </div>
+
+            <div class="panel panel--drive">
+              <div class="panel__label">DRIVE · SKID-STEER MIX</div>
+              <div class="tracks">
+                <div class="track"><span>L BANK</span><div class="track__bar"><i id="barL"></i></div><b id="valL">0%</b></div>
+                <div class="track"><span>R BANK</span><div class="track__bar"><i id="barR"></i></div><b id="valR">0%</b></div>
+              </div>
+              <div class="pad" id="pad"><i id="padDot"></i></div>
+              <div class="panel__foot"><span>INPUT</span><b id="inputSrc">AI</b></div>
+            </div>
+
+            <div class="panel panel--gps">
+              <div class="panel__label">GPS</div>
+              <div class="kv"><span>FIX</span><b class="warn">NO LINK</b></div>
+              <div class="kv"><span>LAT</span><b>—</b></div>
+              <div class="kv"><span>LON</span><b>—</b></div>
+              <div class="kv"><span>HEADING</span><b id="heading">000°</b></div>
+              <div class="compass"><i id="needle"></i></div>
+            </div>
+
+            <div class="panel panel--log">
+              <div class="panel__label">EVENT LOG</div>
+              <ul class="log" id="log"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ JOURNEY ============ -->
+    <section class="section journey" id="journey">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">05 — Journey</p>
+          <h2 class="h2">From sketch to self-driving.</h2>
+        </div>
+        <ol class="timeline">
+          <li class="done reveal"><b>CAD design</b><span>Full chassis, leg linkage and arm modelled and rendered.</span></li>
+          <li class="done reveal"><b>Prototype build</b><span>Aluminium frame, six driven wheels and the arm assembled by hand.</span></li>
+          <li class="done reveal"><b>Power isolation</b><span>Brownouts traced and fixed with a dual-rail architecture.</span></li>
+          <li class="done reveal"><b>Kernel-level PWM</b><span>Pinmux unlocked; motors driven straight from sysfs.</span></li>
+          <li class="done reveal"><b>Stress validated</b><span>60 s combined drive + arm load with zero brownouts.</span></li>
+          <li class="now reveal"><b>Sensor fusion</b><span>Camera, 360° LiDAR and GPS into one live pipeline.</span></li>
+          <li class="next reveal"><b>AI Pilot</b><span>A multimodal AI agent planning high-level navigation goals.</span></li>
+          <li class="next reveal"><b>Mission control</b><span>Live dashboard with gamepad Manual Overdrive.</span></li>
+          <li class="next reveal"><b>Field trials</b><span>Off the blocks and out into the real world.</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="section gallery" id="gallery">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">06 — Gallery</p>
+          <h2 class="h2">CAD to concrete.</h2>
+        </div>
+        <div class="masonry">
+          <figure class="shot shot--wide reveal"><img src="assets/img/render-front.webp" alt="AANYA CAD render, front three-quarter view" loading="lazy"><figcaption>CAD render · front</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/img/build-arm.jpg" alt="The real AANYA prototype with its robotic arm and camera" loading="lazy"><figcaption>Prototype · arm &amp; camera</figcaption></figure>
+          <figure class="shot reveal"><img src="assets/img/build-full.jpg" alt="The real AANYA prototype on a concrete floor, six wheels on articulated legs" loading="lazy"><figcaption>Prototype · full build</figcaption></figure>
+          <figure class="shot shot--wide reveal"><img src="assets/img/render-side.webp" alt="AANYA CAD render, side view showing the leg linkage" loading="lazy"><figcaption>CAD render · side</figcaption></figure>
+        </div>
+        <!-- Videos: add <video> tiles here once clips are in assets/video/ -->
+        <div class="video-slot reveal">
+          <span class="play play--lg"></span>
+          <p><b>Drive footage incoming.</b><br><span class="muted">Test runs and arm demos coming soon.</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TEAM ============ -->
+    <section class="section team" id="team">
+      <div class="wrap">
+        <div class="section__head reveal">
+          <p class="kicker">07 — The crew</p>
+          <h2 class="h2">The people behind the bolts.</h2>
+        </div>
+        <!-- TODO: replace names, roles and initials. Add a photo with <img> inside .member__ph if you have one. -->
+        <div class="members">
+          <article class="member reveal"><div class="member__ph">TL</div><h4>Team Lead</h4><p>Systems &amp; integration</p></article>
+          <article class="member reveal"><div class="member__ph">ME</div><h4>Mechanical</h4><p>Chassis, legs &amp; arm</p></article>
+          <article class="member reveal"><div class="member__ph">EE</div><h4>Electronics</h4><p>Power &amp; motor drivers</p></article>
+          <article class="member reveal"><div class="member__ph">SW</div><h4>Software &amp; AI</h4><p>Kernel PWM, autonomy</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PARTNERS / CTA ============ -->
+    <section class="section partners" id="contact">
+      <div class="wrap">
+        <div class="cta reveal">
+          <p class="kicker">08 — Join the mission</p>
+          <h2 class="h2">Help us take AANYA into the field.</h2>
+          <p class="lead">We're looking for sponsors, mentors and new members. Hardware, sensors, compute or know-how: every bit gets us closer to full autonomy.</p>
+          <div class="hero__cta">
+            <!-- TODO: put your team email here -->
+            <a class="btn btn--primary" href="mailto:teamaanya@example.com">Become a sponsor</a>
+            <a class="btn btn--ghost" href="mailto:teamaanya@example.com?subject=Joining%20Team%20AANYA">Join the team</a>
+          </div>
+        </div>
+        <div class="built-with reveal">
+          <span>Built with</span>
+          <ul><li>NVIDIA Jetson</li><li>Cytron MDD10A</li><li>PCA9685</li><li>Ubuntu Linux</li><li>Autodesk Fusion</li></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap foot__in">
+      <span class="foot__brand"><img src="assets/img/logo-mark.svg" alt="" />TEAM <b>AANYA</b> · Student Robotics</span>
+      <span class="muted">© <span id="year"></span> Team AANYA</span>
+      <a href="#top" class="muted">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Lightbox / video modal -->
+  <div class="modal" id="modal" role="dialog" aria-modal="true" aria-label="Media viewer" hidden>
+    <button class="modal__x" id="modalX" aria-label="Close">×</button>
+    <div class="modal__body" id="modalBody"></div>
+  </div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
