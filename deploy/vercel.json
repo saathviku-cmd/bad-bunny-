@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/", "destination": "https://rawcdn.githack.com/saathviku-cmd/bad-bunny-/a7b8c906dac3a5b710ef1adac093318fdc6ac8be/index.html" },
-    { "source": "/:path*", "destination": "https://rawcdn.githack.com/saathviku-cmd/bad-bunny-/a7b8c906dac3a5b710ef1adac093318fdc6ac8be/:path*" }
-  ]
-}

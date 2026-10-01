@@ -54,10 +54,12 @@ Part names shown on the site come from `tools/part_names.json` (rename rules, tr
 
 ## Deploy
 
-Live at **https://team-aanya.vercel.app** (Vercel project `team-aanya`).
+Hosted on **GitHub Pages** straight from this repo: every push to the branch goes live within a minute or two.
 
-The current deployment is just `deploy/vercel.json`: Vercel proxies every request to this public repo through rawcdn.githack.com, pinned to one commit. To publish new changes, push, put the new commit SHA in `deploy/vercel.json`, and redeploy it.
+- Turn it on once: repo **Settings → Pages → Build and deployment → Source: Deploy from a branch**, branch `claude/kind-pasteur-4znwcj`, folder `/ (root)`.
+- Free address: `https://saathviku-cmd.github.io/bad-bunny-/`
+- Custom domain (e.g. `teamaanya.com`): buy it at any registrar, then add these DNS records:
+  - `A` records for `@` → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+  - `CNAME` record for `www` → `saathviku-cmd.github.io`
 
-Simpler long-term option: install the Vercel GitHub app on this repo (Vercel dashboard → project → Settings → Git → Connect). Then Vercel builds straight from the repo and redeploys on every push, and `deploy/vercel.json` is no longer needed.
-
-Any static host also works: Netlify, or GitHub Pages (Settings → Pages → deploy from branch).
+  Then put the domain in Settings → Pages → Custom domain (this creates a `CNAME` file in the repo) and tick **Enforce HTTPS** once it's offered.
