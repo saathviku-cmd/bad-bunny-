@@ -106,6 +106,7 @@
   async function start() {
     if (!ctx) build();
     await ctx.resume();
+    if (ctx.state !== "running") return;
     const t = ctx.currentTime + 0.05;
     if (!timer) {
       nextChordAt = t; nextBellAt = t + 2;
@@ -113,16 +114,18 @@
     }
     master.gain.cancelScheduledValues(t);
     master.gain.setValueAtTime(master.gain.value, t);
-    master.gain.linearRampToValueAtTime(0.6, t + 2.5);
+    master.gain.linearRampToValueAtTime(0.85, t + 2.5);
     on = true;
   }
-  // Start on the first interaction (or right away if the browser already allows it).
-  const kick = () => { if (!on) start().catch(() => {}); };
-  ["pointerdown", "keydown", "touchend"].forEach((ev) => addEventListener(ev, kick, { once: true, passive: true }));
-  try {
-    const probe = new AC();
-    if (probe.state === "running") { probe.close(); kick(); } else probe.close();
-  } catch (e) { /* ignore */ }
+  // Start on the first click, tap or key press (scrolling doesn't count for
+  // browsers). Keep listening until the audio is actually running.
+  const EVENTS = ["pointerdown", "pointerup", "click", "keydown", "touchend"];
+  const stopListening = () => EVENTS.forEach((ev) => removeEventListener(ev, kick, true));
+  function kick() {
+    if (on && ctx && ctx.state === "running") return stopListening();
+    start().then(() => { if (ctx.state === "running") stopListening(); }).catch(() => {});
+  }
+  EVENTS.forEach((ev) => addEventListener(ev, kick, true));
   document.addEventListener("visibilitychange", () => {
     if (!ctx || !on) return;
     if (document.hidden) ctx.suspend(); else ctx.resume();
@@ -130,6 +133,6 @@
   // Music ducks while a video plays full size in the viewer.
   window.aanyaAudio = {
     setProgress(p) { if (filter) filter.frequency.setTargetAtTime(700 + p * 1800, ctx.currentTime, 0.8); },
-    duck(down) { if (on && master) master.gain.setTargetAtTime(down ? 0.1 : 0.6, ctx.currentTime, 0.3); },
+    duck(down) { if (on && master) master.gain.setTargetAtTime(down ? 0.12 : 0.85, ctx.currentTime, 0.3); },
   };
 })();

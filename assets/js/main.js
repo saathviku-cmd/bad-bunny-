@@ -26,24 +26,25 @@
     boot.classList.add("is-done");
     document.body.classList.remove("is-booting");
   }
-  if (reduced || sessionStorageGet("aanya-booted")) {
-    finishBoot();
-  } else {
-    document.body.classList.add("is-booting");
-    const log = $("#bootLog");
-    const bar = $("#bootBar");
-    bootLines.forEach(([k, v], i) => {
-      setTimeout(() => {
-        const li = document.createElement("li");
-        li.innerHTML = `<span>${k}</span><b>${v}</b>`;
-        log.appendChild(li);
-        bar.style.width = ((i + 1) / bootLines.length) * 100 + "%";
-      }, 180 + i * 230);
-    });
-    setTimeout(finishBoot, 180 + bootLines.length * 230 + 350);
-    boot.addEventListener("click", finishBoot);
-    sessionStorageSet("aanya-booted", "1");
-  }
+  // The boot screen ends on an "Enter" button: one click opens the site and,
+  // because it is a real click, also lets the background music start.
+  const enterBtn = $("#bootEnter");
+  const showEnter = () => { enterBtn.hidden = false; enterBtn.focus({ preventScroll: true }); };
+  enterBtn.addEventListener("click", finishBoot);
+  document.body.classList.add("is-booting");
+  const bootLog = $("#bootLog");
+  const bootBar = $("#bootBar");
+  const quick = reduced || sessionStorageGet("aanya-booted");
+  bootLines.forEach(([k, v], i) => {
+    setTimeout(() => {
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${k}</span><b>${v}</b>`;
+      bootLog.appendChild(li);
+      bootBar.style.width = ((i + 1) / bootLines.length) * 100 + "%";
+    }, quick ? 0 : 180 + i * 230);
+  });
+  setTimeout(showEnter, quick ? 50 : 180 + bootLines.length * 230 + 200);
+  sessionStorageSet("aanya-booted", "1");
   function sessionStorageGet(k) { try { return sessionStorage.getItem(k); } catch { return null; } }
   function sessionStorageSet(k, v) { try { sessionStorage.setItem(k, v); } catch { /* ignore */ } }
 
