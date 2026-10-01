@@ -325,6 +325,8 @@ body:not(.has-hangar) .hangar { display: none; }
 
 /* ---------- college chip ---------- */
 .college { display: inline-flex; align-items: center; gap: 8px; margin-left: 14px; padding: 6px 10px 6px 6px; border: 1px solid var(--line-2); background: rgba(5, 7, 10, 0.5); font: 600 0.66rem/1 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: #c4ced8; white-space: nowrap; }
+.college__name b { display: block; color: #fff; }
+.college__name { line-height: 1.35; }
 .college__mark { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #fff; overflow: hidden; }
 .college__mark img { width: 30px; height: 30px; object-fit: cover; display: block; }
 .affil { display: inline-flex; align-items: center; gap: 12px; margin: 0 0 1.2rem; padding: 8px 16px 8px 8px; border: 1px solid var(--line-2); background: var(--panel); }
@@ -335,6 +337,11 @@ body:not(.has-hangar) .hangar { display: none; }
 .foot__college img { width: 32px; height: 32px; border-radius: 50%; background: #fff; object-fit: cover; }
 .nav { justify-content: flex-start; }
 .nav__links { margin-left: auto; }
+
+@media (max-width: 1280px) {
+  .college__name { display: none; }
+  .college { padding: 3px; border-radius: 50%; }
+}
 
 /* ---------- how we built it: brand badges ---------- */
 .brands { list-style: none; margin: 0 0 clamp(36px, 5vw, 56px); padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
@@ -370,6 +377,14 @@ body:not(.has-hangar) .hangar { display: none; }
 .member h4 { margin: 0 4px 6px; font: 700 1.15rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: 0.02em; }
 .member p { margin: 0 4px; font-size: 0.88rem; color: var(--muted); }
 .crew__sub { margin-bottom: 14px; }
+.mentors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: clamp(36px, 5vw, 56px); }
+.mentor { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; align-items: center; padding: 12px; border: 1px solid rgba(79, 211, 214, 0.35); background: linear-gradient(120deg, rgba(79, 211, 214, 0.07), transparent 60%), var(--panel); transition: border-color 0.3s, transform 0.3s var(--ease); }
+.mentor:hover { border-color: var(--cyan); transform: translateY(-3px); }
+.mentor__ph { aspect-ratio: 4 / 5; overflow: hidden; background: #fff; }
+.mentor__ph img { width: 100%; height: 100%; object-fit: cover; }
+.mentor__body .member__tag { margin-left: 0; }
+.mentor h4 { margin: 0 0 6px; font: 700 1.2rem/1.2 var(--f-display); text-transform: uppercase; letter-spacing: 0.02em; }
+.mentor p { margin: 0; font-size: 0.9rem; color: var(--muted); }
 .division__lead { display: block; margin: -2px 0 10px; font: 600 0.66rem/1.3 var(--f-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--cyan); }
 
 /* ---------- engineering ---------- */
@@ -604,6 +619,7 @@ body:not(.has-hangar) .hangar { display: none; }
   .viewer__side { height: auto; grid-template-rows: auto 260px; }
   .tools { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .brands { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .mentors { grid-template-columns: 1fr; }
   .crew { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .player { grid-template-columns: 1fr; }
   .player__list { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
@@ -634,6 +650,8 @@ body:not(.has-hangar) .hangar { display: none; }
   .tools { grid-template-columns: 1fr; }
   .college__name { display: none; }
   .crew { gap: 10px; }
+  .mentors { grid-template-columns: 1fr; }
+  .mentor { grid-template-columns: 110px minmax(0, 1fr); gap: 14px; }
   .member { padding: 8px 8px 14px; }
   .member h4 { font-size: 0.98rem; }
   .college { margin-left: 10px; padding: 3px; border-radius: 50%; }
