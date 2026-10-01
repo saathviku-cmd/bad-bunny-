@@ -54,4 +54,10 @@ Part names shown on the site come from `tools/part_names.json` (rename rules, tr
 
 ## Deploy
 
-Static hosting works anywhere: Vercel, Netlify, or GitHub Pages (Settings → Pages → deploy from branch).
+Live at **https://team-aanya.vercel.app** (Vercel project `team-aanya`).
+
+The current deployment is just `deploy/vercel.json`: Vercel proxies every request to this public repo through rawcdn.githack.com, pinned to one commit. To publish new changes, push, put the new commit SHA in `deploy/vercel.json`, and redeploy it.
+
+Simpler long-term option: install the Vercel GitHub app on this repo (Vercel dashboard → project → Settings → Git → Connect). Then Vercel builds straight from the repo and redeploys on every push, and `deploy/vercel.json` is no longer needed.
+
+Any static host also works: Netlify, or GitHub Pages (Settings → Pages → deploy from branch).
