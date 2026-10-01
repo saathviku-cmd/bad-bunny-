@@ -50,17 +50,6 @@
 </head>
 <body>
 
-  <!-- ============ BOOT PRELOADER ============ -->
-  <div class="boot" id="boot">
-    <div class="boot__inner">
-      <div class="boot__logo"><img src="assets/img/logo-mark.svg" alt="" />AANYA<span>//OS</span></div>
-      <ul class="boot__log" id="bootLog"></ul>
-      <div class="boot__bar"><i id="bootBar"></i></div>
-      <button type="button" class="btn btn--primary boot__enter" id="bootEnter" hidden><span class="play"></span>Enter the hangar</button>
-      <p class="boot__hint">Sound on · best with headphones</p>
-    </div>
-  </div>
-
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
     <a href="#top" class="nav__brand" aria-label="Team AANYA home">
@@ -92,7 +81,6 @@
             <button type="button" data-hangar-tab="action">In action</button>
             <button type="button" data-hangar-tab="control">Mission control</button>
             <button type="button" data-hangar-tab="build">Build</button>
-            <button type="button" data-hangar-tab="crew">Crew</button>
             <button type="button" data-hangar-tab="enter">Enter</button>
           </nav>
           <div class="hangar__intro" id="hangarIntro">
@@ -108,7 +96,7 @@
             <span id="hangarText">AANYA: a 6WD skid-steer rover with a multi-axis arm and an NVIDIA Jetson edge-AI brain.</span>
           </div>
           <p class="hangar__hover" id="hangarHover" hidden></p>
-          <div class="hangar__hint">Scroll to walk · Click a screen</div>
+          <div class="hangar__hint">Scroll to walk · Click a screen<span class="hint-sound"> · Click anywhere for sound</span></div>
           <div class="hangar__progress" aria-hidden="true"><i id="hangarBar"></i></div>
         </div>
       </div>
@@ -236,19 +224,19 @@
         <p class="kicker crew__sub">Mentors &amp; advisors</p>
         <div class="mentors">
           <article class="mentor reveal">
-            <div class="mentor__ph"><img src="assets/img/team/keshvamurthy.jpg" alt="Keshvamurthy Y C" loading="lazy" width="640" height="800" /></div>
-            <div class="mentor__body">
-              <span class="member__tag">Mentor &amp; guide</span>
-              <h4>Keshvamurthy&nbsp;Y&nbsp;C</h4>
-              <p>Our mentor and guide, who has helped us at every stage of building AANYA.</p>
-            </div>
-          </article>
-          <article class="mentor reveal">
             <div class="mentor__ph"><img src="assets/img/team/shanmukha.jpg" alt="Prof. (Dr.) Shanmukha Nagaraj" loading="lazy" width="640" height="800" /></div>
             <div class="mentor__body">
               <span class="member__tag">Faculty advisor</span>
               <h4>Prof. (Dr.) Shanmukha Nagaraj</h4>
               <p>Professor and Head, Department of Mechanical Engineering, RVCE. A great supporter of the team and the project.</p>
+            </div>
+          </article>
+          <article class="mentor reveal">
+            <div class="mentor__ph"><img src="assets/img/team/keshvamurthy.jpg" alt="Keshvamurthy Y C" loading="lazy" width="640" height="800" /></div>
+            <div class="mentor__body">
+              <span class="member__tag">Mentor &amp; guide</span>
+              <h4>Keshvamurthy&nbsp;Y&nbsp;C</h4>
+              <p>Our mentor and guide, who has helped us at every stage of building AANYA.</p>
             </div>
           </article>
         </div>

@@ -107,6 +107,7 @@
     if (!ctx) build();
     await ctx.resume();
     if (ctx.state !== "running") return;
+    document.body.classList.add("sound-on");
     const t = ctx.currentTime + 0.05;
     if (!timer) {
       nextChordAt = t; nextBellAt = t + 2;

@@ -13,7 +13,7 @@ python3 -m http.server 8000   # then visit http://localhost:8000
 ```
 index.html            all page sections
 assets/css/style.css  styles (brand colours are the variables at the top)
-assets/js/main.js     boot screen, hotspots, terminal, mission-control demo
+assets/js/main.js     nav, hotspots, terminal, mission-control demo
 assets/img/           renders, build photos, logo (logo-mark.svg, logo-vertical.svg)
 assets/video/         put clips here
 ```

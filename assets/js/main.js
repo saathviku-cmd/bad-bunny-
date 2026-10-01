@@ -12,42 +12,6 @@
 
   const pad2 = (n) => String(n).padStart(2, "0");
 
-  /* ---------- boot preloader ---------- */
-  const boot = $("#boot");
-  const bootLines = [
-    ["pwmchip0 · pwm0/pwm1", "OK"],
-    ["i2c-1 · PCA9685 @0x40", "OK"],
-    ["RAIL A · 5V LOGIC", "STABLE"],
-    ["RAIL B · MOTOR BUS", "ARMED"],
-    ["CAM · GRIPPER · LIGHTS", "OK"],
-    ["AANYA · SYSTEMS", "GO"],
-  ];
-  function finishBoot() {
-    boot.classList.add("is-done");
-    document.body.classList.remove("is-booting");
-  }
-  // The boot screen ends on an "Enter" button: one click opens the site and,
-  // because it is a real click, also lets the background music start.
-  const enterBtn = $("#bootEnter");
-  const showEnter = () => { enterBtn.hidden = false; enterBtn.focus({ preventScroll: true }); };
-  enterBtn.addEventListener("click", finishBoot);
-  document.body.classList.add("is-booting");
-  const bootLog = $("#bootLog");
-  const bootBar = $("#bootBar");
-  const quick = reduced || sessionStorageGet("aanya-booted");
-  bootLines.forEach(([k, v], i) => {
-    setTimeout(() => {
-      const li = document.createElement("li");
-      li.innerHTML = `<span>${k}</span><b>${v}</b>`;
-      bootLog.appendChild(li);
-      bootBar.style.width = ((i + 1) / bootLines.length) * 100 + "%";
-    }, quick ? 0 : 180 + i * 230);
-  });
-  setTimeout(showEnter, quick ? 50 : 180 + bootLines.length * 230 + 200);
-  sessionStorageSet("aanya-booted", "1");
-  function sessionStorageGet(k) { try { return sessionStorage.getItem(k); } catch { return null; } }
-  function sessionStorageSet(k, v) { try { sessionStorage.setItem(k, v); } catch { /* ignore */ } }
-
   /* ---------- nav ---------- */
   const nav = $("#nav");
   const burger = $("#burger");
