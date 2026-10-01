@@ -113,11 +113,22 @@
   }, 9000, TEAL, 0.045);
   const roverGroup = new THREE.Group(); roverGroup.add(rover); roverGroup.position.set(0, 0, 2); scene.add(roverGroup);
 
+
+  // Load a GLB, or a base64 text copy of one (".b64.txt", for hosts that won't serve .glb).
+  function loadModel(loader, src, onLoad, onProgress, onError) {
+    if (!/\.b64\.txt$/.test(src)) return loader.load(src, onLoad, onProgress, onError);
+    fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }).then((t) => {
+      const bin = atob(t.trim()), buf = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      loader.parse(buf.buffer, "", onLoad, onError);
+    }).catch(onError || (() => {}));
+  }
   // Swap the sketch for a point cloud sampled from the real CAD model, when it loads.
   if (THREE.GLTFLoader) {
     const gl = new THREE.GLTFLoader();
     if (window.MeshoptDecoder) gl.setMeshoptDecoder(window.MeshoptDecoder);
-    gl.load("assets/model/aanya.glb", (gltf) => {
+    const modelSrc = (document.getElementById("explore") || {}).dataset?.model || "assets/model/aanya.glb";
+    loadModel(gl, modelSrc, (gltf) => {
       const m = gltf.scene; m.updateMatrixWorld(true);
       // Sample points evenly over the surface area, so flat panels show up as well as detailed parts.
       const tris = [], area = [];

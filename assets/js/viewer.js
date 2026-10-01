@@ -99,10 +99,20 @@
   addEventListener("resize", resize);
 
   /* ---------- load ---------- */
+  // Load a GLB, or a base64 text copy of one (".b64.txt", for hosts that won't serve .glb).
+  function loadModel(loader, src, onLoad, onProgress, onError) {
+    if (!/\.b64\.txt$/.test(src)) return loader.load(src, onLoad, onProgress, onError);
+    fetch(src).then((r) => { if (!r.ok) throw new Error(r.status); return r.text(); }).then((t) => {
+      const bin = atob(t.trim()), buf = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+      loader.parse(buf.buffer, "", onLoad, onError);
+    }).catch(onError || (() => {}));
+  }
+
   const src = root.dataset.model;
   const loader = new THREE.GLTFLoader();
   if (window.MeshoptDecoder) loader.setMeshoptDecoder(window.MeshoptDecoder); // model is packed with gltfpack -cc
-  loader.load(src, (gltf) => {
+  loadModel(loader, src, (gltf) => {
     model = gltf.scene;
     // Normalise: centre on the floor, scale to ~4 units across.
     const box = new THREE.Box3().setFromObject(model), size = box.getSize(new THREE.Vector3());
