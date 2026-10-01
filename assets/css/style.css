@@ -2,6 +2,7 @@
    TEAM AANYA — site styles
    ========================================================== */
 :root {
+  color-scheme: dark;
   --bg: #05070a;
   --bg-2: #0a0e14;
   --panel: rgba(255, 255, 255, 0.025);

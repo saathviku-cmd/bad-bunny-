@@ -20,12 +20,13 @@ assets/video/         put clips here
 
 ## Videos
 
-All cut from the team's test film (H.264, muted, web-optimised):
+Cut from the team's test film, plus a trailer rendered in code from the CAD renders and footage (H.264, muted, web-optimised):
 
 | File | Used in | Content |
 |---|---|---|
-| `hero.mp4` | Hero background loop | Drive + arm highlights |
-| `aanya-film.mp4` | "Watch the film" button | Full 2:48 film |
+| `hero.mp4` | Hero background loop | Code-rendered trailer, no titles |
+| `trailer.mp4` | "Watch the trailer" button, In Action player | 16 s trailer with titles |
+| `aanya-film.mp4` | In Action player | Full 2:48 film |
 | `drive.mp4`, `arm.mp4`, `grab.mp4`, `lights.mp4`, `dashboard.mp4` | In Action player | Individual tests |
 
 Stills for posters live in `assets/img/still-*.jpg`. To swap a clip, replace the file with the same name. Keep files under GitHub's 100 MB limit; host long videos on YouTube.

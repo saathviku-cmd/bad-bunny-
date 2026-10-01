@@ -149,7 +149,7 @@
     openModal(`<img src="${img.getAttribute("src")}" alt="${img.alt}">`);
   }));
   $("#watchBtn").addEventListener("click", () => {
-    openModal(`<video src="assets/video/aanya-film.mp4" controls autoplay playsinline></video>`);
+    openModal(`<video src="assets/video/trailer.mp4" controls autoplay playsinline></video>`);
   });
 
   /* ---------- in-action player ---------- */

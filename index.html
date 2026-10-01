@@ -49,10 +49,10 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="hero">
       <div class="hero__media" id="heroMedia">
-        <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/still-drive.jpg">
+        <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/img/still-hero.jpg">
           <source src="assets/video/hero.mp4" type="video/mp4" />
         </video>
-        <img class="hero__img" src="assets/img/still-drive.jpg" alt="" />
+        <img class="hero__img" src="assets/img/still-hero.jpg" alt="" />
       </div>
       <div class="hero__shade"></div>
       <div class="hero__tint"></div>
@@ -74,7 +74,7 @@
         </h1>
         <p class="hero__sub">Engineering autonomy, one wheel at a time. We build a <b>six-wheel-drive autonomous rover</b> with a <b>robotic arm</b> and an <b>edge-AI brain</b>, from CAD to concrete floor.</p>
         <div class="hero__cta">
-          <button class="btn btn--primary" id="watchBtn" type="button"><span class="play"></span>Watch the film</button>
+          <button class="btn btn--primary" id="watchBtn" type="button"><span class="play"></span>Watch the trailer</button>
           <a href="#rover" class="btn btn--ghost">Explore the rover</a>
         </div>
       </div>
@@ -281,16 +281,18 @@
         </div>
         <div class="player reveal">
           <div class="player__stage">
-            <video id="playerVideo" src="assets/video/drive.mp4" poster="assets/img/still-drive.jpg" muted loop playsinline preload="metadata"></video>
-            <div class="player__hud"><span class="dot dot--rec"></span><b id="playerTitle">DRIVE TEST</b><span id="playerTime">00:00</span></div>
+            <video id="playerVideo" src="assets/video/trailer.mp4" poster="assets/img/still-trailer.jpg" muted loop playsinline preload="metadata"></video>
+            <div class="player__hud"><span class="dot dot--rec"></span><b id="playerTitle">OFFICIAL TRAILER</b><span id="playerTime">00:00</span></div>
             <button class="player__full" id="playerFull" type="button" aria-label="Play fullscreen">⤢</button>
           </div>
           <ol class="player__list" id="playerList">
-            <li><button type="button" class="is-on" data-src="assets/video/drive.mp4" data-poster="assets/img/still-drive.jpg" data-title="DRIVE TEST"><img src="assets/img/still-drive.jpg" alt="" loading="lazy"><span><b>Drive test</b>6WD skid-steer on concrete</span></button></li>
+            <li><button type="button" class="is-on" data-src="assets/video/trailer.mp4" data-poster="assets/img/still-trailer.jpg" data-title="OFFICIAL TRAILER"><img src="assets/img/still-trailer.jpg" alt="" loading="lazy"><span><b>Official trailer</b>16 seconds of AANYA</span></button></li>
+            <li><button type="button" data-src="assets/video/drive.mp4" data-poster="assets/img/still-drive.jpg" data-title="DRIVE TEST"><img src="assets/img/still-drive.jpg" alt="" loading="lazy"><span><b>Drive test</b>6WD skid-steer on concrete</span></button></li>
             <li><button type="button" data-src="assets/video/arm.mp4" data-poster="assets/img/still-arm.jpg" data-title="ARM ARTICULATION"><img src="assets/img/still-arm.jpg" alt="" loading="lazy"><span><b>Arm articulation</b>Multi-axis sweep on PCA9685 servos</span></button></li>
             <li><button type="button" data-src="assets/video/grab.mp4" data-poster="assets/img/still-grab.jpg" data-title="GRIPPER PICK"><img src="assets/img/still-grab.jpg" alt="" loading="lazy"><span><b>Gripper pick</b>Taking objects from a hand</span></button></li>
             <li><button type="button" data-src="assets/video/lights.mp4" data-poster="assets/img/still-lights.jpg" data-title="LIGHTS TEST"><img src="assets/img/still-lights.jpg" alt="" loading="lazy"><span><b>Lights test</b>Onboard illumination</span></button></li>
             <li><button type="button" data-src="assets/video/dashboard.mp4" data-poster="assets/img/still-dashboard.jpg" data-title="MISSION CONTROL UI"><img src="assets/img/still-dashboard.jpg" alt="" loading="lazy"><span><b>Mission control</b>Our dashboard, running</span></button></li>
+            <li><button type="button" data-src="assets/video/aanya-film.mp4" data-poster="assets/img/still-intro.jpg" data-title="FULL FILM"><img src="assets/img/still-intro.jpg" alt="" loading="lazy"><span><b>Full film</b>The complete 2:48 test reel</span></button></li>
           </ol>
         </div>
       </div>
